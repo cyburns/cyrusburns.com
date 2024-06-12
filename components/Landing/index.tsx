@@ -6,12 +6,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { slideUp } from "./animation";
 import { motion } from "framer-motion";
-import CB_HERO from "@/public/images/CB_HERO_DARKER.png";
-
+import CB_HERO_BG from "@/public/images/CD_HERO_BLURRED.png";
 
 export default function Home() {
   const firstText = useRef(null);
   const secondText = useRef(null);
+
   const slider = useRef(null);
   let xPercent = 0;
   let direction = -1;
@@ -40,7 +40,7 @@ export default function Home() {
     gsap.set(firstText.current, { xPercent: xPercent });
     gsap.set(secondText.current, { xPercent: xPercent });
     requestAnimationFrame(animate);
-    xPercent += 0.1 * direction;
+    xPercent += 0.05 * direction;
   };
 
   return (
@@ -50,11 +50,11 @@ export default function Home() {
       animate="enter"
       className={styles.landing}
     >
-      <Image src={CB_HERO} fill={true} alt="background" />
+      <Image src={CB_HERO_BG} fill={true} alt="background" />
       <div className={styles.sliderContainer}>
-        <div ref={slider} className={styles.slider}>
-          <p ref={firstText}>Software Engineer -</p>
-          <p ref={secondText}>Software Engineer -</p>
+        <div ref={slider} className={`${styles.slider} `}>
+          <p ref={firstText}>Software Engineer •</p>
+          <p ref={secondText}>Software Engineer •</p>
         </div>
       </div>
       <div data-scroll data-scroll-speed={0.1} className={styles.description}>
@@ -70,6 +70,7 @@ export default function Home() {
             fill="white"
           />
         </svg>
+        <p>Freelance</p>
         <p>Designer & Developer</p>
       </div>
     </motion.main>

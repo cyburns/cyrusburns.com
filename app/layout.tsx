@@ -1,8 +1,8 @@
 import "./globals.css";
-import { Oswald } from "next/font/google";
-import Header from "@/components/Header";
+import { Inter, Lora } from "next/font/google";
+import Header from "../components/Header";
 
-const oswald = Oswald({ subsets: ["latin"] });
+const lora = Lora({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -12,7 +12,7 @@ export const metadata = {
 export default function RootLayout({ children }: any) {
   return (
     <html lang="en">
-      <body className={oswald.className}>
+      <body className={lora.className}>
         <Header />
         {children}
       </body>

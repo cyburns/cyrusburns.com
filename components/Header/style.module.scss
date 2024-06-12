@@ -17,7 +17,6 @@
     p {
       margin: 0px;
       transition: all 0.5s cubic-bezier(0.76, 0, 0.24, 1);
-      font-size: 2rem;
     }
     .name {
       display: flex;
@@ -44,14 +43,14 @@
         transform: rotate(360deg);
       }
       .name {
-        padding-right: 30px;
+        padding-right: 1px;
         .codeBy {
           transform: translateX(-100%);
         }
-        .dennis {
+        .cyrus {
           transform: translateX(-65px);
         }
-        .snellenberg {
+        .burns {
           transform: translateX(-65px);
         }
       }
@@ -75,9 +74,9 @@
       }
       .indicator {
         position: absolute;
-        width: 8px;
-        height: 8px;
-        top: 55px;
+        width: 5px;
+        height: 5px;
+        top: 45px;
         left: 50%;
         background-color: white;
         border-radius: 50%;
@@ -87,7 +86,6 @@
     }
     a {
       cursor: pointer;
-      font-size: 2rem;
     }
   }
 }
