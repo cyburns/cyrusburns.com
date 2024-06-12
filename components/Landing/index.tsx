@@ -70,7 +70,6 @@ export default function Home() {
             fill="white"
           />
         </svg>
-        <p>Freelance</p>
         <p>Designer & Developer</p>
       </div>
     </motion.main>
