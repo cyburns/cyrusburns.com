@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import SplashScreen from "@/components/SplashScreen";
 import { AnimatePresence } from "framer-motion";
+import Works from "@/components/Works";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     (async () => {
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
-      const locomotiveScroll = new LocomotiveScroll();
+      const locomotiveScroll = new LocomotiveScroll({});
     })();
 
     setTimeout(() => {
@@ -21,7 +22,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="-z-50 overflow-hidden max-w-[100%">
+    <main className="-z-50 overflow-hidden max-w-[100%] bg-black">
       <AnimatePresence mode="wait">
         {isLoading && <SplashScreen />}
       </AnimatePresence>
