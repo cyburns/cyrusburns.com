@@ -1,33 +1,50 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Image from "next/image";
+import AudiaPhone from "@/public/images/audia/audia-w-text-centered.png";
+import BrightArt from "@/public/images/bright/bright-art.png";
+import ReacTypeRed from "@/public/images/reactype/reactype-red-text.png";
+import Press from "@/public/images/press/press-bg.png";
+import Portfolio from "@/public/images/port/pink-green-port.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const works = [
   {
     name: "AUDIA",
-    img: "https://cdn.sanity.io/images/mbttrbyl/production/4deceba7fbbfb685d55a0cd4eaaa6077e68135c9-2000x2500.jpg?h=1080&q=60&auto=format",
+    img: AudiaPhone,
+    color: "#cccccc",
   },
   {
     name: "BRIGHT",
-    img: "https://cdn.sanity.io/images/mbttrbyl/production/ef3e1575c2c83d455d48d0cece290e2af704f5b7-2000x2500.jpg?h=1080&q=60&auto=format",
+    img: BrightArt,
+    color: "#1e3f59",
   },
   {
     name: "REACTYPE",
-    img: "https://cdn.sanity.io/images/mbttrbyl/production/947b09129d093a71b27c670a366038159da4c03d-1000x1250.jpg?h=1080&q=60&auto=format",
+    img: ReacTypeRed,
+    color: "#d42a30",
   },
   {
     name: "PRESS",
-    img: "https://cdn.sanity.io/images/mbttrbyl/production/48404a0139bd362614834f55025a6aef8caa4b58-2000x2500.jpg?h=1080&q=60&auto=format",
+    img: Press,
+    color: "#ffe400",
+  },
+  {
+    name: "PORTFOLIO",
+    img: Portfolio,
+    color: "#a01142",
   },
 ];
 
 const Hero = () => {
+  const [backgroundColor, setBackgroundColor] = useState("#000000");
+
   const textBoxRef = useRef(null);
+  const backgroundRef = useRef(null);
 
   useEffect(() => {
     gsap.to(textBoxRef.current, {
@@ -41,7 +58,7 @@ const Hero = () => {
       scale: 0.75,
       opacity: 0.5,
     });
-  });
+  }, []);
 
   useEffect(() => {
     const addImageScale = () => {
@@ -65,7 +82,7 @@ const Hero = () => {
             },
             scrub: 1,
           },
-          scale: 3,
+          scale: 1.25,
           ease: "none",
         });
       });
@@ -88,14 +105,14 @@ const Hero = () => {
 
       ScrollTrigger.create({
         trigger: section as HTMLDivElement,
-        start,
-        end,
+        start: start,
+        end: end,
         onEnter: () => {
           gsap.to(preview, {
             scrollTrigger: {
               trigger: section as HTMLDivElement,
-              start,
-              end,
+              start: start,
+              end: end,
               scrub: 0.125,
             },
             clipPath: endClipPath,
@@ -106,13 +123,13 @@ const Hero = () => {
     };
 
     animateClipPath(
-      `#section-0`,
-      `#preview-0`,
+      `#section-1`,
+      `#preview-1`,
       "polygon(0% 100%, 100% 100%, 100% 100%, 0 100%)",
       "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
     );
 
-    for (let i = 2; i <= works.length; i++) {
+    for (let i = 1; i <= works.length; i++) {
       const currentSection = `#section-${i}`;
       const prevPreview = `#preview-${i - 1}`;
       const currentPreview = `#preview-${i}`;
@@ -121,10 +138,12 @@ const Hero = () => {
         currentSection,
         prevPreview,
         "polygon(0% 0%, 100% 0%, 100% 100%, 0 100%)",
-        "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)"
+        "polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%)",
+        "top bottom",
+        "center center"
       );
 
-      if (i < works.length) {
+      if (i <= works.length + 1) {
         animateClipPath(
           currentSection,
           currentPreview,
@@ -137,9 +156,40 @@ const Hero = () => {
     }
   }, []);
 
+  // useEffect(() => {
+  //   const sections = gsap.utils.toArray("section");
+  //   sections.forEach((section, index) => {
+  //     const startCondition = index === 0 ? "top top" : "top center";
+
+  //     gsap.to(backgroundRef.current, {
+  //       scrollTrigger: {
+  //         trigger: section as HTMLDivElement,
+  //         start: startCondition,
+  //         end: "bottom top",
+  //         scrub: true,
+  //         onEnter: () => {
+  //           gsap.to(backgroundRef.current, {
+  //             backgroundColor: works[index].color,
+  //             duration: 0.5,
+  //           });
+  //         },
+  //         onLeaveBack: () => {
+  //           const prevColor = index === 0 ? "black" : works[index - 1].color;
+  //           gsap.to(backgroundRef.current, {
+  //             backgroundColor: prevColor,
+  //             duration: 0.5,
+  //           });
+  //         },
+  //       },
+  //     });
+  //   });
+  // }, [works]);
+
   return (
     <>
-      <div className="w-screen h-screen overflow-hidden bg-black text-white z-10">
+      <div
+        className={`w-screen h-screen overflow-hidden transition duration-700 bg-[${backgroundColor}] text-white z-10 mix-blend-difference`}
+      >
         <div
           ref={textBoxRef}
           className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[18px] min-w-[270px]"
@@ -183,30 +233,38 @@ const Hero = () => {
         </div>
       </div>
 
-      <div className="headers text-[15rem] bg-transparent text-white flex flex-col items-center font-semibold">
+      <div
+        className={`headers text-[14vw] bg-transparent text-white flex flex-col items-center font-semibold uppercase text-center transition duration-700 bg-[${backgroundColor}]`}
+      >
         {works.map((work, index) => (
-          <section key={index} id={`section-${index + 1}`}>
-            <h1 key={work.name} className="mt-[150vh]">
-              {work.name}
-            </h1>
+          <section
+            key={index}
+            id={`section-${index + 1}`}
+            className="my-[100vh]"
+          >
+            <h1 key={work.name}>{work.name}</h1>
           </section>
         ))}
 
         <div className="h-[200px] w-full" />
 
-        <div className="section-previews z-30 fixed w-[500px] h-[700px]  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+        <div className="section-previews z-30 fixed w-[350px] sm:w-[700px] h-[550px] sm:h-[900px]  top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
           {works.map((work, index) => (
             <div
               key={index}
               id={`preview-${index + 1}`}
-              className="img w-full h-full absolute overflow-hidden z-30 custom-clip"
+              className={`img w-full h-full absolute overflow-hidden z-50 custom-clip`}
+              onMouseEnter={() => {
+                setBackgroundColor(work.color);
+              }}
+              onMouseLeave={() => setBackgroundColor("#000000")}
             >
               <Image
                 src={work.img}
                 alt={work.name}
-                width={600}
+                width={1000}
                 height={700}
-                className="object-cover  w-full h-full"
+                className="object-cover w-full h-full"
               />
             </div>
           ))}

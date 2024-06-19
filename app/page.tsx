@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import Hero from "@/components/Hero";
 import SplashScreen from "@/components/SplashScreen";
 import { AnimatePresence } from "framer-motion";
-import Works from "@/components/Works";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
