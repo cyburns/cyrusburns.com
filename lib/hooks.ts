@@ -19,3 +19,34 @@ export function useSectionInView(sectionName: SectionName, threshold = 0.75) {
     ref,
   };
 }
+
+let interval: NodeJS.Timeout | null = null;
+
+export const shuffleLetters = (e: any) => {
+  const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
+  let iteration = 0;
+
+  if (interval !== null) {
+    clearInterval(interval);
+  }
+
+  interval = setInterval(() => {
+    e.target.innerText = e.target.innerText
+      .split("")
+      .map((_: any, index: number) => {
+        if (index < iteration) {
+          return e.target.dataset.value[index];
+        }
+
+        return alphabet[Math.floor(Math.random() * 26)];
+      })
+      .join("");
+
+    if (iteration >= e.target.dataset.value.length) {
+      clearInterval(interval!);
+      interval = null;
+    }
+
+    iteration += 1 / 3;
+  }, 30);
+};

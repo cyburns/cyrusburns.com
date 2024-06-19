@@ -10,6 +10,7 @@
 
 html {
   --line-color: #e5e7eb;
+  background-color: black;
 }
 
 html.dark {
