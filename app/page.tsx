@@ -1,41 +1,31 @@
 "use client";
-import styles from "./page.module.scss";
+
 import { useEffect, useState } from "react";
+import Hero from "@/components/Hero";
+import SplashScreen from "@/components/SplashScreen";
 import { AnimatePresence } from "framer-motion";
-import Preloader from "@/components/Preloader";
-import Landing from "@/components/Landing";
-import Projects from "@/components/Projects";
-import Description from "@/components/Description";
-import SlidingImages from "@/components/SlidingImages";
-import Contact from "@/components/Contact";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     (async () => {
-      // @ts-ignore
       const LocomotiveScroll = (await import("locomotive-scroll")).default;
       const locomotiveScroll = new LocomotiveScroll();
-
-      setTimeout(() => {
-        setIsLoading(false);
-        document.body.style.cursor = "default";
-        window.scrollTo(0, 0);
-      }, 2000);
     })();
+
+    setTimeout(() => {
+      setIsLoading(false);
+      window.scrollTo(0, 0);
+    }, 2000);
   }, []);
 
   return (
-    <main className={styles.main}>
+    <main className="-z-50 overflow-hidden max-w-[100%">
       <AnimatePresence mode="wait">
-        {isLoading && <Preloader />}
+        {isLoading && <SplashScreen />}
       </AnimatePresence>
-      <Landing />
-      <Description />
-      <Projects />
-      <SlidingImages />
-      <Contact />
+      <Hero />
     </main>
   );
 }
