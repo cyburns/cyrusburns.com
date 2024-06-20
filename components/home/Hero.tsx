@@ -16,26 +16,31 @@ gsap.registerPlugin(ScrollTrigger);
 
 const works = [
   {
+    id: "01",
     name: "AUDIA",
     img: AudiaPhone,
     color: "#525252",
   },
   {
+    id: "02",
     name: "BRIGHT",
     img: BrightArt,
     color: "#1e3f59",
   },
   {
+    id: "03",
     name: "REACTYPE",
     img: ReacTypeRed,
     color: "#d42a30",
   },
   {
+    id: "04",
     name: "PRESS",
     img: Press,
     color: "#ffe400",
   },
   {
+    id: "05",
     name: "PORTFOLIO",
     img: Portfolio,
     color: "#a01142",
@@ -44,10 +49,8 @@ const works = [
 
 const Hero = () => {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
-  const [isPreviewActive, setIsPreviewActive] = useState(false);
 
   const textBoxRef = useRef(null);
-  const backgroundRef = useRef(null);
   const zIndexRef = useRef(null);
 
   useEffect(() => {
@@ -170,11 +173,12 @@ const Hero = () => {
 
   return (
     <div
-      className={`headers text-[5rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-normal uppercase text-center transition duration-700 bg-[${backgroundColor}]`}
+      className={`headers text-[5rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-normal uppercase text-center transition duration-700 `}
+      style={{ backgroundColor }}
     >
       <div
         ref={zIndexRef}
-        className={`w-screen h-screen overflow-hidden transition duration-700 bg-[${backgroundColor}] text-white mix-blend-difference z-10`}
+        className={`w-screen h-screen overflow-hidden transition duration-700  text-white mix-blend-difference z-10`}
       >
         <div
           ref={textBoxRef}
@@ -233,7 +237,9 @@ const Hero = () => {
           id={`section-${index + 1}`}
           className="my-[100vh] font-semibold"
         >
-          <h1 key={work.name}>{work.name}</h1>
+          <Link href={`work/${work.id}`} key={work.name}>
+            {work.name}
+          </Link>
         </section>
       ))}
 
@@ -243,27 +249,27 @@ const Hero = () => {
         className={`section-previews fixed w-[350px] sm:w-[700px] h-[650px] sm:h-[900px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
       >
         {works.map((work, index) => (
-          <div
-            key={index}
-            id={`preview-${index + 1}`}
-            className={`img w-full h-full absolute overflow-hidden custom-clip `}
-            onMouseEnter={() => {
-              setBackgroundColor(work.color);
-              setIsPreviewActive(true);
-            }}
-            onMouseLeave={() => {
-              setBackgroundColor("#000000");
-              setIsPreviewActive(false);
-            }}
-          >
-            <Image
-              src={work.img}
-              alt={work.name}
-              width={1000}
-              height={700}
-              className="object-cover w-full h-full"
-            />
-          </div>
+          <Link href={`work/${work.id}`}>
+            <div
+              key={index}
+              id={`preview-${index + 1}`}
+              className={`img w-full h-full absolute overflow-hidden custom-clip `}
+              onMouseEnter={() => {
+                setBackgroundColor(work.color);
+              }}
+              onMouseLeave={() => {
+                setBackgroundColor("#000000");
+              }}
+            >
+              <Image
+                src={work.img}
+                alt={work.name}
+                width={1000}
+                height={700}
+                className="object-cover w-full h-full"
+              />
+            </div>
+          </Link>
         ))}
 
         <div className="h-[200px] w-full" />
