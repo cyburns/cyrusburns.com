@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Hero from "@/components/Hero";
-import SplashScreen from "@/components/SplashScreen";
+import Hero from "@/components/home/Hero";
+import SplashScreen from "@/components/home/SplashScreen";
 import { AnimatePresence } from "framer-motion";
 
 export default function Home() {

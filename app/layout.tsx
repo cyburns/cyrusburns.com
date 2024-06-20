@@ -2,7 +2,7 @@ import "./globals.css";
 import ActiveSectionContextProvider from "@/context/active-section-context";
 import ThemeContextProvider from "@/context/theme-context";
 import { Toaster } from "react-hot-toast";
-import Mouse from "@/components/Mouse";
+import Mouse from "@/components/home/Mouse";
 import { Raleway } from "next/font/google";
 
 const raleway = Raleway({ subsets: ["latin"] });
