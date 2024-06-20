@@ -3,11 +3,18 @@
 import React, { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { FiArrowUpRight } from "react-icons/fi";
 import Link from "next/link";
 import { IoCaretBack } from "react-icons/io5";
+import Buttons from "./Buttons";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const buttons = [
+  { name: "LINKEDIN", link: "https://www.linkedin.com/in/cyburns/" },
+  { name: "GITHUB", link: "https://github.com/cyburns" },
+  { name: "INSTAGRAM", link: "https://www.instagram.com/cyburns/" },
+  { name: "EMAIL", link: "mailto:cyrusburns@gmail.com" },
+];
 
 const Contact = () => {
   const textBoxRef = useRef(null);
@@ -72,27 +79,9 @@ const Contact = () => {
           <h1 className="text-[7rem] uppercase">touch</h1>
         </div>
         <div className="uppercase text-[2.5rem] mt-16 space-y-7  pb-16">
-          <button className="flex items-center border rounded-full  px-5 py-4 hover:bg-white hover:text-black transition duration-300 hover:scale-95">
-            <a className="flex" href="https://www.linkedin.com/in/cyburns/">
-              LINKEDIN <FiArrowUpRight className="text-[3.3rem]" />
-            </a>
-          </button>
-
-          <button className="flex items-center border rounded-full  px-5 py-4 hover:bg-white hover:text-black transition duration-300 hover:scale-95">
-            <a className="flex" href="https://github.com/cyburns">
-              GITHUB <FiArrowUpRight className="text-[3.3rem]" />
-            </a>
-          </button>
-          <button className="flex items-center border rounded-full  px-5 py-4 hover:bg-white hover:text-black transition duration-300 hover:scale-95">
-            <a className="flex" href="https://www.instagram.com/cyrusburns/">
-              INSTAGRAM <FiArrowUpRight className="text-[3.3rem]" />
-            </a>
-          </button>
-          <button className="flex items-center border rounded-full px-5 py-4 hover:bg-white hover:text-black transition duration-300 hover:scale-95">
-            <a className="flex" href="mailto:cyrusburns@gmail.com">
-              EMAIL <FiArrowUpRight className="text-[3.3rem]" />
-            </a>
-          </button>
+          {buttons.map((button, index) => (
+            <Buttons key={index} name={button.name} link={button.link} />
+          ))}
         </div>
       </div>
     </div>
