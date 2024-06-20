@@ -170,7 +170,7 @@ const Hero = () => {
 
   return (
     <div
-      className={`headers text-[5rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-semibold uppercase text-center transition duration-700 bg-[${backgroundColor}]`}
+      className={`headers text-[5rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-normal uppercase text-center transition duration-700 bg-[${backgroundColor}]`}
     >
       <div
         ref={zIndexRef}
@@ -228,7 +228,11 @@ const Hero = () => {
       </div>
 
       {works.map((work, index) => (
-        <section key={index} id={`section-${index + 1}`} className="my-[100vh]">
+        <section
+          key={index}
+          id={`section-${index + 1}`}
+          className="my-[100vh] font-semibold"
+        >
           <h1 key={work.name}>{work.name}</h1>
         </section>
       ))}
