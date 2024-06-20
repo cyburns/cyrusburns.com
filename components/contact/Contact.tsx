@@ -6,7 +6,6 @@ import { ScrollTrigger } from "gsap/all";
 import { FiArrowUpRight } from "react-icons/fi";
 import Link from "next/link";
 import { IoCaretBack } from "react-icons/io5";
-import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -43,6 +42,19 @@ const Contact = () => {
           </Link>
         </button>
       </div>
+
+      <div className="text-lg fixed right-5 top-5">
+        <button className="border-white text-white hover:text-black mix-blend-difference border-[1px] px-4 py-2 flex flex-row mb-10 hover:bg-white transition duration-300">
+          <Link
+            href="/info"
+            className="flex flex-row items-center justify-between uppercase"
+          >
+            INFO
+            <IoCaretBack className="rotate-180" />
+          </Link>
+        </button>
+      </div>
+
       <div
         ref={textBoxRef}
         className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[270px]"
