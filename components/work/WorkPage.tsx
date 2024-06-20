@@ -75,7 +75,7 @@ const WorkPage = ({ id }: any) => {
   return (
     <div
       ref={backgroundRef}
-      className="pt-16 pb-48 px-5"
+      className="pt-16 pb-48 px-5 sm:px-0"
       style={{ backgroundColor: work.color }}
     >
       <div className="text-lg fixed left-5 top-5 z-50">

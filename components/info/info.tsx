@@ -30,7 +30,7 @@ const Info = () => {
 
   return (
     <div
-      className={`headers text-[5rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-semibold transition duration-700 z-10 mix-blend-difference`}
+      className={`headers text-[3rem] xs:text-[4rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-semibold transition duration-700 z-10 mix-blend-difference px-4 sm:px-0`}
     >
       <div className="text-lg fixed left-5 top-5">
         <button className="border-white text-white hover:text-black mix-blend-difference border-[1px] px-4 py-2 flex flex-row mb-10 hover:bg-white transition duration-300">
@@ -61,16 +61,16 @@ const Info = () => {
         className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[270px]"
       >
         <div className="-space-y-2 ">
-          <div className="flex justify-center ">
-            <p>/INFO/ME</p>
+          <div className="flex justify-center text-center">
+            <p>/INFO/</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-[80vh]  max-w-lg flex flex-col z-50 mb-56">
-        <div className="-space-y-16 text-center font-normal">
-          <h1 className="text-[7rem] uppercase">Cyrus</h1>
-          <h1 className="text-[6.75rem] uppercase">Burns</h1>
+      <div className="mt-[80vh] max-w-xs xs:max-w-lg  flex flex-col z-50 mb-56">
+        <div className="-space-y-6 sm:-space-y-16 text-center font-normal">
+          <h1 className="text-[5rem] sm:text-[7rem] uppercase">Cyrus</h1>
+          <h1 className="text-[4.75rem] sm:text-[6.75rem] uppercase">Burns</h1>
         </div>
         <Image
           src={CYRUS}
@@ -112,7 +112,7 @@ const Info = () => {
           <h2 className="uppercase">open for enquiries</h2>
           <h2 className="uppercase">reach out</h2>
         </div>
-        <div className="text-4xl text-center">
+        <div className="text-xl xs:text-4xl text-center">
           <h3 className="mt-16 underline">cyrusburns@gmail.com</h3>
         </div>
       </div>
