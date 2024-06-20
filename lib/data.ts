@@ -39,6 +39,7 @@ export const alphabet = "abcdefghijklmnopqrstuvwxyz";
 export const works = [
   {
     id: "01",
+    color: "#525252",
     photoPathName: "audia",
     metaOne: "AUDIA",
     title: "SHARE MUSIC",
@@ -60,6 +61,7 @@ export const works = [
   },
   {
     id: "02",
+    color: "#1e3f59",
     photoPathName: "bright",
     metaOne: "BRIGHT",
     title: "DESIGN AND DEVELOPMENT AGENCY/STUDIO",
@@ -78,16 +80,18 @@ export const works = [
   },
   {
     id: "03",
+    color: "#d42a30",
     photoPathName: "reactype",
     metaOne: "REACTYPE",
     title: "NO-CODE BUILDER",
     metaTwo: "[WEB]",
-    src: "reactype.dev.png",
+    src: "reactype-red-text.png",
     imgs: [
+      "reactype-red-text.png",
       "bubble-bg.png",
       "new-rt-comp-render.png",
       "moving-bubble.png",
-      "reactype-red-text.png",
+      "reactype.dev.png",  
       "BLACK_RT_LOGO_WHITE_BG.png",
       "SF_RT_LOGO_WHITE_W_TEXT.png",
     ],
@@ -99,6 +103,7 @@ export const works = [
   },
   {
     id: "04",
+    color: "#ffe400",
     photoPathName: "press",
     metaOne: "PRESS",
     title: "SPORTS",
@@ -113,6 +118,7 @@ export const works = [
   },
   {
     id: "05",
+    color: "#a01142",
     photoPathName: "christine",
     metaOne: "MARKETING",
     title: "PINK + GREEN",

@@ -1,12 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Oswald } from "next/font/google";
+import gsap from "gsap";
+import { Montserrat } from "next/font/google";
 
-const oswald = Oswald({ subsets: ["latin"] });
+const mont = Montserrat({ subsets: ["latin"] });
 
-const percents = ["13%", "27%", "38%", "49%", "58%", "67%", "74%", "89%"];
+const words = [
+  "Hello",
+  "Bonjour",
+  "Ciao",
+  "Olà",
+  "やあ",
+  "Hallo",
+  "Hallå",
+  "Guten tag",
+  "Hello",
+];
 
 export const opacity = {
   initial: {
@@ -28,47 +39,47 @@ export const slideUp = {
   },
 };
 
-const SplashScreen = () => {
+const SplashScreen = ({ setIsLoading }: any) => {
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
+
+  const wordsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setDimension({ width: window.innerWidth, height: window.innerHeight });
   }, []);
 
   useEffect(() => {
-    if (index == percents.length - 1) return;
+    if (index === words.length - 1) {
+      fadeOpacity();
+      return;
+    }
+
     setTimeout(
       () => {
         setIndex(index + 1);
       },
-      index == 0 ? 1000 : 150
+      index === words.length - 1 || index === 0 ? 1000 : 175
     );
   }, [index]);
 
-  const initialPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${
-    dimension.height
-  } Q${dimension.width / 2} ${dimension.height + 300} 0 ${
-    dimension.height
-  }  L0 0`;
-  const targetPath = `M0 0 L${dimension.width} 0 L${dimension.width} ${
-    dimension.height
-  } Q${dimension.width / 2} ${dimension.height} 0 ${dimension.height}  L0 0`;
-
-  const curve = {
-    initial: {
-      d: initialPath,
-      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1] },
-    },
-    exit: {
-      d: targetPath,
-      transition: { duration: 0.7, ease: [0.76, 0, 0.24, 1], delay: 0.3 },
-    },
+  const fadeOpacity = () => {
+    if (dimension.width > 0) {
+      gsap.to(wordsRef.current, {
+        opacity: 0,
+        duration: 1,
+        delay: 1,
+        ease: "power2.inOut",
+        onComplete: () => {
+          setIsLoading(false);
+        },
+      });
+    }
   };
 
   return (
     <motion.div
-      variants={slideUp}
+      ref={wordsRef}
       initial="initial"
       exit="exit"
       className="h-screen w-screen flex items-center justify-center fixed z-[99] bg-black"
@@ -79,21 +90,10 @@ const SplashScreen = () => {
             variants={opacity}
             initial="initial"
             animate="enter"
-            className="flex items-center text-white text-[42px] absolute z-[1]"
+            className={`${mont.className} flex items-center text-white text-sm absolute z-[1]`}
           >
-            <span
-              className={`block w-[10px] h-[10px] bg-white rounded-full mr-[10px] ${oswald.className}`}
-            ></span>
-            {percents[index]}
+            {words[index]}
           </motion.p>
-          <svg className="absolute top-0 w-full h-[calc(100%+300px)]">
-            <motion.path
-              variants={curve}
-              initial="initial"
-              exit="exit"
-              style={{ fill: "#000000" }}
-            ></motion.path>
-          </svg>
         </>
       )}
     </motion.div>

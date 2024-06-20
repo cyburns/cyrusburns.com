@@ -11,6 +11,7 @@ import ReacTypeRed from "@/public/images/reactype/reactype-red-text.png";
 import Press from "@/public/images/press/press-bg.png";
 import Portfolio from "@/public/images/port/pink-green-port.png";
 import Link from "next/link";
+import { useInView, motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,17 +42,47 @@ const works = [
   },
   {
     id: "05",
-    name: "PORTFOLIO",
+    name: "EXTRA",
     img: Portfolio,
     color: "#a01142",
   },
 ];
+
+const slideUp = {
+  initial: {
+    y: "100%",
+  },
+  open: (i: number) => ({
+    y: "0%",
+    transition: { duration: 0.5, delay: 0.01 * i },
+  }),
+  closed: {
+    y: "100%",
+    transition: { duration: 0.5 },
+  },
+};
+
+const opacity = {
+  initial: {
+    opacity: 0,
+  },
+  open: {
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+  closed: {
+    opacity: 0,
+    transition: { duration: 0.5 },
+  },
+};
 
 const Hero = () => {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
 
   const textBoxRef = useRef(null);
   const zIndexRef = useRef(null);
+
+  const isInView = useInView(textBoxRef);
 
   useEffect(() => {
     gsap.to(textBoxRef.current, {

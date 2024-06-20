@@ -3,7 +3,7 @@ import React from "react";
 
 const page = ({ params }: any) => {
   return (
-    <div className="px-5">
+    <div className="">
       <WorkPage id={params.id} />
     </div>
   );

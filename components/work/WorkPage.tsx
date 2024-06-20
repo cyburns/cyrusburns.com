@@ -9,14 +9,13 @@ import Link from "next/link";
 import { IoCaretBack } from "react-icons/io5";
 
 const WorkPage = ({ id }: any) => {
-  const [scrolledPercent, setScrolledPercent] = useState("0");
-
   const work = works.find((work) => work.id === id);
   const nextWorkId = works.find((work) => work.id === id + 1);
 
   if (!work) return null;
 
   const mainImgRef = useRef(null);
+  const backgroundRef = useRef(null);
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -48,17 +47,6 @@ const WorkPage = ({ id }: any) => {
       scale: 0.7,
     });
 
-    ScrollTrigger.create({
-      trigger: document.documentElement,
-      scrub: true,
-      start: 0,
-      end: "bottom top",
-      onUpdate: (self: any) => {
-        const scrollProgress = self.progress * 100;
-        setScrolledPercent(scrollProgress.toFixed(0));
-      },
-    });
-
     const resizeObserver = new ResizeObserver(updateScrollAnimation);
     resizeObserver.observe(document.documentElement);
 
@@ -70,11 +58,26 @@ const WorkPage = ({ id }: any) => {
   }, [work]);
 
   useEffect(() => {
-    updateScrollAnimation();
-  }, [work]);
+    const endCondition = "bottom bottom";
+
+    gsap.to(backgroundRef.current, {
+      scrollTrigger: {
+        trigger: document.documentElement,
+        scrub: 0.25,
+        start: 0,
+        end: endCondition,
+      },
+      duration: 3,
+      backgroundColor: "black",
+    });
+  }, [work, backgroundRef]);
 
   return (
-    <div className="mt-16 mb-48">
+    <div
+      ref={backgroundRef}
+      className="pt-16 pb-48 px-5"
+      style={{ backgroundColor: work.color }}
+    >
       <div className="text-lg fixed left-5 top-5 z-50">
         <button className="border-white text-white hover:text-black mix-blend-difference border-[1px] px-4 py-2 flex flex-row mb-10 hover:bg-white transition duration-300">
           <Link
@@ -93,7 +96,7 @@ const WorkPage = ({ id }: any) => {
         </h1>
       </div>
 
-      <div className="-mt-16 sm:-mt-44 px-24">
+      <div className="-mt-10 sm:-mt-44 sm:px-24">
         <Image
           ref={mainImgRef}
           src={`/images/${work.photoPathName}/${work.imgs[0]}`}
@@ -106,7 +109,7 @@ const WorkPage = ({ id }: any) => {
 
       <div className="text-black mix-blend-difference text-[20vw] sm:text-[8vw] flex flex-row justify-between moving-percent z-[99999999]"></div>
 
-      <div className="mt-24 flex flex-col sm:flex-row justify-between mx-5 md:mx-10 lg:mx-[12%] xl:mx-[18%]">
+      <div className="mt-24 flex flex-col sm:flex-row justify-between md:mx-10 lg:mx-[12%] xl:mx-[18%]">
         <h2 className="text-white mix-blend-difference text-5xl font-semibold sm:w-1/3 z-30">
           {work?.header}
         </h2>
