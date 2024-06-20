@@ -49,7 +49,7 @@ const Contact = () => {
       >
         <div className="-space-y-2 ">
           <div className="flex justify-center uppercase">
-            <p>/Contact/</p>
+            <p>/CONTACT/</p>
           </div>
         </div>
       </div>
