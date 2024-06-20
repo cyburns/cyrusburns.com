@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 const buttons = [
   { name: "LINKEDIN", link: "https://www.linkedin.com/in/cyburns/" },
   { name: "GITHUB", link: "https://github.com/cyburns" },
-  { name: "INSTAGRAM", link: "https://www.instagram.com/cyburns/" },
+  { name: "INSTAGRAM", link: "https://www.instagram.com/cyrusburns/" },
   { name: "EMAIL", link: "mailto:cyrusburns@gmail.com" },
 ];
 
