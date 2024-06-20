@@ -9,7 +9,7 @@ const raleway = Raleway({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Cyrus | Portfolio",
-  description: "Director of Marketing.",
+  description: "Software Engineer",
 };
 
 export default function RootLayout({
