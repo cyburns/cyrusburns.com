@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="  example">
-      <Mouse />
+      {/* <Mouse /> */}
       <body className={`${raleway.className} `}>
         <ThemeContextProvider>
           <ActiveSectionContextProvider>
