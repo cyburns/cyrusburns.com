@@ -20,9 +20,8 @@ export function useSectionInView(sectionName: SectionName, threshold = 0.75) {
   };
 }
 
-let interval: NodeJS.Timeout | null = null;
-
-export const shuffleLetters = (e: any) => {
+export const shuffleLettersTwo = (e: any) => {
+  let interval: NodeJS.Timeout | null = null;
   const alphabet = "abcdefghijklmnopqrstuvwxyz".toUpperCase();
   let iteration = 0;
 
@@ -49,4 +48,32 @@ export const shuffleLetters = (e: any) => {
 
     iteration += 1 / 3;
   }, 30);
+};
+
+export const shuffleLetters = (e: HTMLElement | any) => {
+  const originalText = e.textContent;
+  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let iteration = 0;
+
+  const randomChar = () =>
+    alphabet[Math.floor(Math.random() * alphabet.length)];
+
+  const shuffle = () => {
+    e.textContent = originalText
+      .split("")
+      .map((char: any) => (char === " " ? " " : randomChar()))
+      .join("");
+  };
+
+  const restore = () => {
+    e.textContent = originalText;
+  };
+
+  shuffle();
+  const intervalId = setInterval(shuffle, 50);
+
+  setTimeout(() => {
+    clearInterval(intervalId);
+    restore();
+  }, 2500);
 };

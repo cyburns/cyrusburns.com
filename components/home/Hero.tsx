@@ -202,6 +202,29 @@ const Hero = () => {
     });
   });
 
+  useEffect(() => {
+    gsap.fromTo(
+      ".left-text",
+      {
+        x: -300,
+        duration: 1,
+        stagger: 0.2,
+        ease: `rough${{ template: "none.out", strength: 1, points: 20 }}`,
+      },
+      {
+        x: 0,
+        duration: 1,
+        stagger: 0.2,
+        ease: `rough${{ template: "none.out", strength: 1, points: 20 }}`,
+        onStart: () => {
+          document
+            .querySelectorAll(".left-text")
+            .forEach((el) => shuffleLetters(el));
+        },
+      }
+    );
+  }, []);
+
   return (
     <div
       className={`headers text-[5rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-normal uppercase text-center transition duration-700 `}
@@ -215,9 +238,11 @@ const Hero = () => {
           ref={textBoxRef}
           className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[18px] min-w-[270px]"
         >
-          <div className="-space-y-2 ">
-            <div className="flex justify-between ">
-              <p>CYRUS BURNS</p>
+          <div className="-space-y-2 overflow-hidden ">
+            <div className="flex justify-between">
+              <p data-value="CYRUS BURNS" className="left-text ">
+                CYRUS BURNS
+              </p>
               <div className="h-[1em] w-[1em]">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -235,29 +260,49 @@ const Hero = () => {
             </div>
 
             <div className="flex justify-between">
-              <p>DESIGNER</p>
-              <p>AND</p>
-              <p>DEVELOPER</p>
+              <p data-value="DESIGNER" className="left-text">
+                DESIGNER
+              </p>
+              <p data-value="AND" className="left-text">
+                AND
+              </p>
+              <p data-value="DEVELOPER" className="left-text">
+                DEVELOPER
+              </p>
             </div>
 
             <div className="flex justify-between">
-              <p>07.04</p>
-              <p>—</p>
-              <p> SELECTED WORKS</p>
+              <p data-value="07.04" className="left-text">
+                07.04
+              </p>
+              <p data-value="—" className="left-text">
+                —
+              </p>
+              <p data-value="SELECTED WORKS" className="left-text">
+                SELECTED WORKS
+              </p>
             </div>
           </div>
 
-          <div className="flex space-x-4 justify-between mt-9  relative">
-            <Link href="/info" onMouseEnter={shuffleLetters} data-value="INFO">
-              INFO
-            </Link>
-            <Link
-              href="/contact"
-              onMouseEnter={shuffleLetters}
-              data-value="CONTACT"
-            >
-              CONTACT
-            </Link>
+          <div className="overflow-hidden ">
+            <div className="flex space-x-4 justify-between mt-9 relative">
+              <Link
+                href="/info"
+                onMouseEnter={shuffleLetters}
+                data-value="INFO"
+                className="left-text"
+              >
+                INFO
+              </Link>
+              <Link
+                href="/contact"
+                onMouseEnter={shuffleLetters}
+                data-value="CONTACT"
+                className="left-text"
+              >
+                CONTACT
+              </Link>
+            </div>
           </div>
         </div>
       </div>
