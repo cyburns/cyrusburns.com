@@ -7,15 +7,15 @@ const name = "CYRUS";
 
 const textVariants = {
   hidden: {
-    y: 400,
-    rotateX: -70,
+    y: 500,
+    rotateX: -80,
     transformOrigin: "bottom",
   },
   visible: (i: number) => ({
     y: 0,
     rotateX: 0,
     transition: {
-      delay: i * 0.15,
+      delay: i * 0.1,
       duration: 0.2,
       type: "spring",
       stiffness: 70,
@@ -41,38 +41,16 @@ const textVariantsTwo = {
   }),
 };
 
-const imageVariants = {
-  hidden: {
-    scale: 1.5,
-    y: 500,
-    x: 200,
-  },
-  visible: {
-    scale: 1,
-    y: 0,
-    x: 0,
-    transition: {
-      duration: 0.6,
-      ease: "easeInOut",
-    },
-  },
-};
-
 const Hero = ({ isMounted }: any) => {
   return (
     <div className="h-screen w-screen bg-gradient-to-r from-[#38464a] sm:from-[#0c110f] via-[#38464a] sm:via-[#38464a] to-[#39494e] sm:to-[#39494e] overflow-hidden relative">
-      <motion.div
-        initial="hidden"
-        animate={!isMounted ? "visible" : "hidden"}
-        variants={imageVariants}
-        className="absolute inset-0 flex items-center justify-center w-full h-full z-10"
-      >
+      <div className="absolute inset-0 flex items-center justify-center w-full h-full z-10">
         <Image
           src={CB}
           alt="Cyrus Burns Portrait"
           className="object-cover h-full w-full"
         />
-      </motion.div>
+      </div>
       <div className="fixed top-5 right-5 text-white uppercase overflow-hidden z-20">
         <motion.p
           initial="hidden"
