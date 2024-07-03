@@ -9,14 +9,13 @@ const mont = Montserrat({ subsets: ["latin"] });
 
 const words = [
   "Hello",
-  "Bonjour",
   "Ciao",
   "Olà",
   "やあ",
   "Hallo",
-  "Hallå",
   "Guten tag",
-  "Hello",
+  "Hallå",
+  "Bonjour",
 ];
 
 export const opacity = {
@@ -39,11 +38,12 @@ export const slideUp = {
   },
 };
 
-const SplashScreen = ({ setIsLoading }: any) => {
+const SplashScreen = ({ setIsLoading, setIsMounted }: any) => {
   const [index, setIndex] = useState(0);
   const [dimension, setDimension] = useState({ width: 0, height: 0 });
 
   const wordsRef = useRef<HTMLDivElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setDimension({ width: window.innerWidth, height: window.innerHeight });
@@ -64,11 +64,15 @@ const SplashScreen = ({ setIsLoading }: any) => {
   }, [index]);
 
   const fadeOpacity = () => {
+    setTimeout(() => {
+      setIsMounted(false);
+    }, 900);
+
     if (dimension.width > 0) {
       gsap.to(wordsRef.current, {
-        opacity: 0,
+        y: "-100%",
         duration: 1,
-        delay: 1,
+        delay: 0.75,
         ease: "power2.inOut",
         onComplete: () => {
           setIsLoading(false);
@@ -77,13 +81,26 @@ const SplashScreen = ({ setIsLoading }: any) => {
     }
   };
 
+  useEffect(() => {
+    gsap.to(lineRef.current, {
+      width: "100%",
+      duration: 2.75,
+      ease: "power2.inOut",
+    });
+  }, []);
+
   return (
     <motion.div
       ref={wordsRef}
       initial="initial"
       exit="exit"
-      className="h-screen w-screen flex items-center justify-center fixed z-[99] bg-black"
+      className="h-screen w-screen flex items-center justify-center fixed z-[99] bg-[#141414]"
     >
+      <div
+        ref={lineRef}
+        className="fixed top-0 w-0  h-1 bg-white left-0 z-50"
+      />
+
       {dimension.width > 0 && (
         <>
           <motion.p

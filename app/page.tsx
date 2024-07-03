@@ -6,7 +6,8 @@ import SplashScreen from "@/components/home/SplashScreen";
 import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(true);
 
   useEffect(() => {
     (async () => {
@@ -18,9 +19,14 @@ export default function Home() {
   return (
     <main className="-z-50 overflow-hidden max-w-[100%] bg-black">
       <AnimatePresence mode="wait">
-        {isLoading && <SplashScreen setIsLoading={setIsLoading} />}
+        {isLoading && (
+          <SplashScreen
+            setIsLoading={setIsLoading}
+            setIsMounted={setIsMounted}
+          />
+        )}
       </AnimatePresence>
-      <Hero />
+      <Hero isMounted={isMounted} />
     </main>
   );
 }
