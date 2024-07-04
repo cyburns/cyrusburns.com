@@ -3,8 +3,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { motion, useInView } from "framer-motion";
-import Image from "next/image";
 import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
+import ImageContainer from "./ImageContainer";
 
 const links = [
   { name: "Home", link: "/" },
@@ -14,99 +14,52 @@ const links = [
 ];
 
 const fakeArray = [
-  { img: CB_NO_BLUR, opacity: 0.8, scale: 1, zIndex: 2 },
-  { img: CB_NO_BLUR, opacity: 0.6, scale: 0.9, zIndex: 3 },
-  { img: CB_NO_BLUR, opacity: 0.4, scale: 0.8, zIndex: 4 },
-  { img: CB_NO_BLUR, opacity: 0.3, scale: 0.7, zIndex: 4 },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.8,
+    scale: 1,
+    zIndex: 2,
+    depth: 0,
+    perspective: 200,
+    tiltMaxAngle: 5.5,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.6,
+    scale: 0.93,
+    zIndex: 3,
+    depth: 0.5,
+    perspective: 400,
+    tiltMaxAngle: 4.5,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.4,
+    scale: 0.86,
+    zIndex: 4,
+    depth: 1,
+    perspective: 600,
+    tiltMaxAngle: 3,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.3,
+    scale: 0.79,
+    zIndex: 5,
+    depth: 1.5,
+    perspective: 800,
+    tiltMaxAngle: 1,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.3,
+    scale: 0.72,
+    zIndex: 5,
+    depth: 1.5,
+    perspective: 800,
+    tiltMaxAngle: 0.5,
+  },
 ];
-
-const ImageContainer = ({
-  styles,
-  index,
-  isMobileMenuOpen,
-  imageRefContainer,
-}: any) => {
-  const { opacity, scale, zIndex, img } = styles;
-
-  useEffect(() => {
-    gsap.set(["#img-1, #img-2, #img-3, #img-4"], { y: 700 });
-  });
-
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      open();
-    } else {
-      close();
-    }
-  }, [isMobileMenuOpen]);
-
-  const open = () => {
-    gsap.to(["#img-1, #img-2, #img-3, #img-4"], {
-      y: 0,
-      duration: 1,
-      stagger: 0.2,
-    });
-  };
-
-  const close = () => {};
-
-  const mouse = { x: 0, y: 0 };
-  let cx = window.innerWidth / 2;
-  let cy = window.innerHeight / 2;
-
-  const scales = [1, 0.9, 0.8, 0.7];
-
-  const updateMouseImage = () => {
-    let dx = mouse.x - cx;
-    let dy = mouse.y - cy;
-
-    let titleX = (dy / cy) * 20;
-    let titleY = (dx / cx) * 20;
-
-    gsap.to(imageRefContainer.current, {
-      duration: 2,
-      transform: `rotate3d(${titleX}, ${titleY}, 0, 15deg)`,
-      ease: "power3.out",
-    });
-
-    ["#img-1, #img-2, #img-3, #img-4"].forEach((el, index) => {
-      let parallaxX = -(dx * (index + 1)) / 100;
-      let parallaxY = -(dy * (index + 1)) / 100;
-
-      let transform = `translate(calc(-50% + ${parallaxX}px), calc(-50% + ${parallaxY}px)) scale(${scales[index]})`;
-
-      gsap.to(el, {
-        duration: 2,
-        transform,
-        ease: "power3.inOut",
-      });
-    });
-  };
-
-  const handleMouseMove = (e: any) => {
-    mouse.x = e.clientX;
-    mouse.y = e.clientY;
-    updateMouseImage();
-  };
-
-  useEffect(() => {
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-    };
-  }, []);
-
-  return (
-    <div
-      className="w-[65%] h-[93%] m-10 bg-gradient-to-r from-[#38464a] sm:from-[#0c110f] via-[#38464a] sm:via-[#38464a] to-[#39494e] sm:to-[#39494e] hidden md:flex absolute top-0 left-0"
-      style={{ opacity, scale, zIndex }}
-      id={`img-${index}`}
-    >
-      <Image src={img} alt="CB" className="object-cover h-full w-full" />
-    </div>
-  );
-};
 
 const Menu = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -170,17 +123,15 @@ const Menu = () => {
         className="bg-[#141414] w-screen h-screen fixed top-0 right-0 z-40 text-white uppercase overflow-hidden"
         style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
       >
-        <div ref={imageRefContainer}>
-          {fakeArray.map((styles, index) => (
-            <ImageContainer
-              styles={styles}
-              index={index}
-              isMobileMenuOpen={isMobileMenuOpen}
-              key={index}
-              imageRefContainer={imageRefContainer}
-            />
-          ))}
-        </div>
+        {fakeArray.map((styles, index) => (
+          <ImageContainer
+            styles={styles}
+            index={index}
+            isMobileMenuOpen={isMobileMenuOpen}
+            key={index}
+            imageRefContainer={imageRefContainer}
+          />
+        ))}
 
         <div className="flex h-full pl-5 md:pl-[75%] pt-32 md:pt-72 text-[3rem] !leading-[1] font-bold">
           <ul>

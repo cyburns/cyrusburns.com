@@ -44,3 +44,9 @@ html.dark {
 .custom-clip-two {
   clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
 }
+
+.parallax-effect-img {
+  transform-style: preserve-3d;
+  transform: perspective(1000px);
+}
+

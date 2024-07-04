@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
-import CB from "@/public/cb-blur-4.png";
+import CB from "@/public/images/cb-blur-10.png";
 import { motion } from "framer-motion";
+import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
+import Tilt from "react-parallax-tilt";
 
 const name = "CYRUS";
 
@@ -41,16 +43,103 @@ const textVariantsTwo = {
   }),
 };
 
+const fakeArray = [
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.1,
+    scale: 1.1,
+    zIndex: 2,
+    depth: 0,
+    perspective: 200,
+    tiltMaxAngle: 10,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.2,
+    scale: 1,
+    zIndex: 2,
+    depth: 0,
+    perspective: 200,
+    tiltMaxAngle: 8,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.3,
+    scale: 0.9,
+    zIndex: 3,
+    depth: 0.5,
+    perspective: 400,
+    tiltMaxAngle: 6,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.4,
+    scale: 0.8,
+    zIndex: 4,
+    depth: 1,
+    perspective: 600,
+    tiltMaxAngle: 4,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.5,
+    scale: 0.7,
+    zIndex: 5,
+    depth: 1.5,
+    perspective: 800,
+    tiltMaxAngle: 2,
+  },
+  {
+    img: CB,
+    opacity: 0.9,
+    scale: 0.6,
+    zIndex: 5,
+    depth: 1.5,
+    perspective: 800,
+    tiltMaxAngle: 2,
+  },
+];
+
 const Hero = ({ isMounted }: any) => {
   return (
     <div className="h-screen w-screen bg-gradient-to-r from-[#38464a] sm:from-[#0c110f] via-[#38464a] sm:via-[#38464a] to-[#39494e] sm:to-[#39494e] overflow-hidden relative ">
-      <div className="absolute inset-0 flex items-center justify-center w-full h-full z-10">
-        <Image
-          src={CB}
-          alt="Cyrus Burns Portrait"
-          className="object-cover h-full w-full"
-        />
-      </div>
+      {fakeArray.map((styles, index) => {
+        const {
+          opacity,
+          scale,
+          zIndex,
+          img,
+          depth,
+          perspective,
+          tiltMaxAngle,
+        } = styles;
+
+        return (
+          <Tilt
+            className="h-full w-full absolute parallax-effect-img"
+            tiltMaxAngleX={tiltMaxAngle}
+            tiltMaxAngleY={tiltMaxAngle}
+            tiltReverse={true}
+            perspective={800}
+            trackOnWindow={true}
+            style={{ scale: 1.4 }}
+          >
+            <Image
+              src={img}
+              alt="Cyrus Burns Portrait"
+              className="object-cover h-full w-full"
+              style={{
+                opacity,
+                scale,
+                zIndex,
+                transform: `translateZ(${depth}px)`,
+                perspective,
+                marginLeft: `${15 * index}px`,
+              }}
+            />
+          </Tilt>
+        );
+      })}
 
       <div className="text-white flex justify-center items-center w-full h-full flex-col uppercase relative z-20">
         <div className="container-1 overflow-hidden w-screen flex justify-center">
