@@ -4,6 +4,7 @@ import ThemeContextProvider from "@/context/theme-context";
 import { Toaster } from "react-hot-toast";
 import Mouse from "@/components/home/Mouse";
 import { Raleway } from "next/font/google";
+import Menu from "@/components/menu/Menu";
 
 const raleway = Raleway({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <body className={`${raleway.className} `}>
         <ThemeContextProvider>
           <ActiveSectionContextProvider>
+            <Menu />
             {children}
             <Toaster position="top-right" />
           </ActiveSectionContextProvider>

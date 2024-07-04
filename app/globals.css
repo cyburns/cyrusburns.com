@@ -40,3 +40,7 @@ html.dark {
 .container-1 {
   perspective: 1000px;
 }
+
+.custom-clip-two {
+  clip-path: polygon(0% 0%, 100% 0%, 100% 0%, 0% 0%);
+}

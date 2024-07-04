@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
-import CB from "@/public/images/cb-blur-6.png";
+import CB from "@/public/cb-blur-4.png";
 import { motion } from "framer-motion";
 
 const name = "CYRUS";
@@ -43,23 +43,13 @@ const textVariantsTwo = {
 
 const Hero = ({ isMounted }: any) => {
   return (
-    <div className="h-screen w-screen bg-gradient-to-r from-[#38464a] sm:from-[#0c110f] via-[#38464a] sm:via-[#38464a] to-[#39494e] sm:to-[#39494e] overflow-hidden relative">
+    <div className="h-screen w-screen bg-gradient-to-r from-[#38464a] sm:from-[#0c110f] via-[#38464a] sm:via-[#38464a] to-[#39494e] sm:to-[#39494e] overflow-hidden relative ">
       <div className="absolute inset-0 flex items-center justify-center w-full h-full z-10">
         <Image
           src={CB}
           alt="Cyrus Burns Portrait"
           className="object-cover h-full w-full"
         />
-      </div>
-      <div className="fixed top-5 right-5 text-white uppercase overflow-hidden z-20">
-        <motion.p
-          initial="hidden"
-          animate={!isMounted ? "visible" : "hidden"}
-          custom={7}
-          variants={textVariantsTwo}
-        >
-          Menu
-        </motion.p>
       </div>
 
       <div className="text-white flex justify-center items-center w-full h-full flex-col uppercase relative z-20">

@@ -6,8 +6,8 @@ import SplashScreen from "@/components/home/SplashScreen";
 import { AnimatePresence } from "framer-motion";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isMounted, setIsMounted] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
     (async () => {
