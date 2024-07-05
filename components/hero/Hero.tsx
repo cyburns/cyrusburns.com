@@ -1,8 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
+import { heroImageArray } from "@/lib/data";
 import Image from "next/image";
-import CB from "@/public/images/cb-blur-10.png";
 import { motion } from "framer-motion";
-import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
 import Tilt from "react-parallax-tilt";
 import gsap from "gsap";
 
@@ -43,63 +42,6 @@ const textVariantsTwo = {
     },
   }),
 };
-
-const fakeArray = [
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.1,
-    scale: 1.1,
-    zIndex: 2,
-    depth: 0,
-    perspective: 200,
-    tiltMaxAngle: 10,
-  },
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.2,
-    scale: 1,
-    zIndex: 2,
-    depth: 0,
-    perspective: 200,
-    tiltMaxAngle: 8,
-  },
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.3,
-    scale: 0.9,
-    zIndex: 3,
-    depth: 0.5,
-    perspective: 400,
-    tiltMaxAngle: 6,
-  },
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.4,
-    scale: 0.8,
-    zIndex: 4,
-    depth: 1,
-    perspective: 600,
-    tiltMaxAngle: 4,
-  },
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.5,
-    scale: 0.7,
-    zIndex: 5,
-    depth: 1.5,
-    perspective: 800,
-    tiltMaxAngle: 2,
-  },
-  {
-    img: CB,
-    opacity: 0.9,
-    scale: 0.6,
-    zIndex: 5,
-    depth: 1.5,
-    perspective: 800,
-    tiltMaxAngle: 2,
-  },
-];
 
 const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
   const [delayedTimeout, setDelayedTimeout] = useState(true);
@@ -154,7 +96,7 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
       className="h-screen w-screen bg-gradient-to-r from-[#38464a] sm:from-[#0c110f] via-[#38464a] sm:via-[#38464a] to-[#39494e] sm:to-[#39494e] overflow-hidden fixed top-0 right-0"
       style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" }}
     >
-      {fakeArray.map((styles, index) => {
+      {heroImageArray.map((styles, index) => {
         const {
           opacity,
           scale,

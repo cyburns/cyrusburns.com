@@ -1,16 +1,20 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import ImageContainer from "./ImageContainer";
 import { IoChevronForwardSharp } from "react-icons/io5";
-import { menuImagesArray, menuLinks } from "@/lib/data";
+import { menuImagesArray, menuLinks, socials } from "@/lib/data";
+import { motion } from "framer-motion";
+import LinkText from "./LinkText";
 
 interface MenuProps {
   isMobileMenuOpen: boolean;
 }
 
 const Menu = ({ isMobileMenuOpen }: MenuProps) => {
+  const [hoveredLinkIndex, setHoveredLinkIndex] = useState<number | null>(null);
+
   const container = useRef<HTMLDivElement>(null);
   const imageRefContainer = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
@@ -123,13 +127,27 @@ const Menu = ({ isMobileMenuOpen }: MenuProps) => {
 
       <div className="flex h-full pl-5 md:pl-[75%] pt-32 md:pt-72 text-[3rem] !leading-[1] font-bold flex-col">
         <ul>
-          {menuLinks.map((link, index) => (
-            <div className="overflow-hidden">
-              <li key={index} id="link-ref">
-                <a href={link.link}>{link.name}</a>
-              </li>
-            </div>
-          ))}
+          {menuLinks.map((link, index) => {
+            const [hoveredIndex, setHoveredIndex] = useState<number | null>(
+              null
+            );
+
+            return (
+              <div key={index} className="overflow-hidden">
+                <div
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  id="link-ref"
+                >
+                  <LinkText
+                    link={link}
+                    index={index}
+                    isHovered={hoveredIndex === index}
+                  />
+                </div>
+              </div>
+            );
+          })}
         </ul>
 
         <div className="text-sm font-light absolute bottom-10">
@@ -144,30 +162,18 @@ const Menu = ({ isMobileMenuOpen }: MenuProps) => {
               </span>
             </p>
             <span>
-              <p className="group overflow-hidden">
-                <span id="link-ref" className="flex flex-row ">
-                  LinkedIn
-                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
-                </span>
-              </p>
-              <p className="group overflow-hidden">
-                <span id="link-ref" className="flex flex-row ">
-                  Github
-                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
-                </span>
-              </p>
-              <p className="group overflow-hidden">
-                <span id="link-ref" className="flex flex-row ">
-                  instagram
-                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
-                </span>
-              </p>
-              <p className="group overflow-hidden">
-                <span id="link-ref" className="flex flex-row ">
-                  spotify
-                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
-                </span>
-              </p>
+              {socials.map((link, index) => (
+                <p key={index} className="group overflow-hidden">
+                  <a
+                    href={link.link}
+                    id="link-ref"
+                    className="flex flex-row items-center"
+                  >
+                    {link.name}
+                    <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
+                  </a>
+                </p>
+              ))}
             </span>
           </div>
 
@@ -228,7 +234,7 @@ const Menu = ({ isMobileMenuOpen }: MenuProps) => {
             <span>
               <p className="overflow-hidden">
                 <span className="flex flex-row items-center" id="link-ref">
-                  Berkshires, <br /> MA
+                  Berkshires, <br /> Massachusetts
                 </span>
               </p>
             </span>

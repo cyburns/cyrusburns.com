@@ -1,4 +1,5 @@
 import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
+import CB from "@/public/images/cb-blur-10.png";
 
 export const links = [
   {
@@ -188,5 +189,72 @@ export const menuImagesArray = [
     depth: 1.5,
     perspective: 800,
     tiltMaxAngle: 0.5,
+  },
+];
+
+export const socials = [
+  { name: "LinkedIn", link: "https://www.linkedin.com/in/cyburns/" },
+  { name: "github", link: "https://github.com/cyburns" },
+  { name: "instagram", link: "https://www.instagram.com/cyrusburns/" },
+  {
+    name: "spotify",
+    link: "https://open.spotify.com/user/1232208178?si=48e88151aab5478b",
+  },
+];
+
+export const heroImageArray = [
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.1,
+    scale: 1.1,
+    zIndex: 2,
+    depth: 0,
+    perspective: 200,
+    tiltMaxAngle: 10,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.2,
+    scale: 1,
+    zIndex: 2,
+    depth: 0,
+    perspective: 200,
+    tiltMaxAngle: 8,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.3,
+    scale: 0.9,
+    zIndex: 3,
+    depth: 0.5,
+    perspective: 400,
+    tiltMaxAngle: 6,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.4,
+    scale: 0.8,
+    zIndex: 4,
+    depth: 1,
+    perspective: 600,
+    tiltMaxAngle: 4,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.5,
+    scale: 0.7,
+    zIndex: 5,
+    depth: 1.5,
+    perspective: 800,
+    tiltMaxAngle: 2,
+  },
+  {
+    img: CB,
+    opacity: 0.9,
+    scale: 0.6,
+    zIndex: 5,
+    depth: 1.5,
+    perspective: 800,
+    tiltMaxAngle: 2,
   },
 ];
