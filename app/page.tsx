@@ -8,8 +8,8 @@ import Menu from "@/components/menu/Menu";
 import MenuButton from "@/components/menu/MenuButton";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {

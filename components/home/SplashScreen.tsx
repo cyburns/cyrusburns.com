@@ -94,7 +94,7 @@ const SplashScreen = ({ setIsLoading, setIsMounted }: any) => {
       ref={wordsRef}
       initial="initial"
       exit="exit"
-      className="h-screen w-screen flex items-center justify-center fixed z-[99] bg-[#141414]"
+      className="h-screen w-screen flex items-center justify-center fixed z-[9999999] bg-[#141414]"
     >
       <div
         ref={lineRef}
