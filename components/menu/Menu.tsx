@@ -5,7 +5,7 @@ import gsap from "gsap";
 import ImageContainer from "./ImageContainer";
 import { IoChevronForwardSharp } from "react-icons/io5";
 import { menuImagesArray, menuLinks, socials } from "@/lib/data";
-import { motion } from "framer-motion";
+import Link from "next/link";
 import LinkText from "./LinkText";
 
 interface MenuProps {
@@ -133,19 +133,21 @@ const Menu = ({ isMobileMenuOpen }: MenuProps) => {
             );
 
             return (
-              <div key={index} className="overflow-hidden">
-                <div
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
-                  id="link-ref"
-                >
-                  <LinkText
-                    link={link}
-                    index={index}
-                    isHovered={hoveredIndex === index}
-                  />
+              <Link href={link.link} key={index}>
+                <div className="overflow-hidden">
+                  <div
+                    onMouseEnter={() => setHoveredIndex(index)}
+                    onMouseLeave={() => setHoveredIndex(null)}
+                    id="link-ref"
+                  >
+                    <LinkText
+                      link={link}
+                      index={index}
+                      isHovered={hoveredIndex === index}
+                    />
+                  </div>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </ul>

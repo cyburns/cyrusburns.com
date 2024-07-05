@@ -139,7 +139,7 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
           {name.split("").map((letter, index) => (
             <motion.h1
               key={index}
-              className="text-[20vw] font-black !leading-[0.75]"
+              className="text-[28vw] sm:text-[20vw] font-black !leading-[0.75]"
               initial="hidden"
               animate={!isMounted && delayedTimeout ? "visible" : "hidden"}
               custom={index}
@@ -149,7 +149,7 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
             </motion.h1>
           ))}
         </div>
-        <div className="flex justify-between absolute bottom-[40%] sm:bottom-[28%] w-[67%] text-xs sm:text-base overflow-hidden">
+        <div className="flex justify-between absolute bottom-[40%] sm:bottom-[28%] w-[93%] sm:w-[67%] text-xs sm:text-base overflow-hidden">
           <motion.p
             initial="hidden"
             animate={!isMounted && delayedTimeout ? "visible" : "hidden"}
