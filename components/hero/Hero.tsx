@@ -210,7 +210,7 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
         <div className="flex justify-between absolute bottom-[40%] sm:bottom-[28%] w-[67%] text-xs sm:text-base overflow-hidden">
           <motion.p
             initial="hidden"
-            animate={!isMounted ? "visible" : "hidden"}
+            animate={!isMounted && delayedTimeout ? "visible" : "hidden"}
             custom={3}
             variants={textVariantsTwo}
           >
@@ -218,7 +218,7 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
           </motion.p>
           <motion.p
             initial="hidden"
-            animate={!isMounted ? "visible" : "hidden"}
+            animate={!isMounted && delayedTimeout ? "visible" : "hidden"}
             custom={6}
             variants={textVariantsTwo}
           >

@@ -2,68 +2,20 @@
 
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
 import ImageContainer from "./ImageContainer";
 import { IoChevronForwardSharp } from "react-icons/io5";
+import { menuImagesArray, menuLinks } from "@/lib/data";
 
-const links = [
-  { name: "Home", link: "/" },
-  { name: "Works", link: "/works" },
-  { name: "contact", link: "/contact" },
-  { name: "INFO", link: "/info" },
-];
+interface MenuProps {
+  isMobileMenuOpen: boolean;
+}
 
-const fakeArray = [
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.8,
-    scale: 1,
-    zIndex: 2,
-    depth: 0,
-    perspective: 200,
-    tiltMaxAngle: 5.5,
-  },
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.6,
-    scale: 0.93,
-    zIndex: 3,
-    depth: 0.5,
-    perspective: 400,
-    tiltMaxAngle: 4.5,
-  },
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.4,
-    scale: 0.86,
-    zIndex: 4,
-    depth: 1,
-    perspective: 600,
-    tiltMaxAngle: 3,
-  },
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.3,
-    scale: 0.79,
-    zIndex: 5,
-    depth: 1.5,
-    perspective: 800,
-    tiltMaxAngle: 1,
-  },
-  {
-    img: CB_NO_BLUR,
-    opacity: 0.3,
-    scale: 0.72,
-    zIndex: 5,
-    depth: 1.5,
-    perspective: 800,
-    tiltMaxAngle: 0.5,
-  },
-];
-
-const Menu = ({ isMobileMenuOpen }: any) => {
+const Menu = ({ isMobileMenuOpen }: MenuProps) => {
   const container = useRef<HTMLDivElement>(null);
   const imageRefContainer = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLDivElement>(null);
+  const bg1 = useRef<HTMLDivElement>(null);
+  const bg2 = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -74,6 +26,7 @@ const Menu = ({ isMobileMenuOpen }: any) => {
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
+    gsap.set(indicatorRef.current, { opacity: 0 });
     gsap.set("#link-ref", { y: 50 });
   }, []);
 
@@ -93,6 +46,15 @@ const Menu = ({ isMobileMenuOpen }: any) => {
       delay: 0.3,
       ease: "power3.inOut",
     });
+
+    gsap.to(indicatorRef.current, {
+      delay: 1.5,
+      opacity: 1,
+      duration: 0.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "power1.inOut",
+    });
   };
 
   const close = () => {
@@ -109,7 +71,37 @@ const Menu = ({ isMobileMenuOpen }: any) => {
           clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
         });
         gsap.set("#link-ref", { y: 50 });
+        gsap.set(indicatorRef.current, { opacity: 0 });
+        gsap.killTweensOf(indicatorRef.current);
       },
+    });
+  };
+
+  const moveBackgroundSpan = () => {
+    gsap.to(bg1.current, {
+      x: "110%",
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+
+    gsap.to(bg2.current, {
+      x: 0,
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+  };
+
+  const moveBackBackgroundSpan = () => {
+    gsap.to(bg1.current, {
+      x: 0,
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+
+    gsap.to(bg2.current, {
+      x: "-100%",
+      duration: 0.5,
+      ease: "power3.inOut",
     });
   };
 
@@ -119,7 +111,7 @@ const Menu = ({ isMobileMenuOpen }: any) => {
       className="bg-[#141414] w-screen h-screen fixed top-0 right-0 z-40 text-white uppercase overflow-hidden"
       style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
     >
-      {fakeArray.map((styles, index) => (
+      {menuImagesArray.map((styles, index) => (
         <ImageContainer
           styles={styles}
           index={index}
@@ -131,7 +123,7 @@ const Menu = ({ isMobileMenuOpen }: any) => {
 
       <div className="flex h-full pl-5 md:pl-[75%] pt-32 md:pt-72 text-[3rem] !leading-[1] font-bold flex-col">
         <ul>
-          {links.map((link, index) => (
+          {menuLinks.map((link, index) => (
             <div className="overflow-hidden">
               <li key={index} id="link-ref">
                 <a href={link.link}>{link.name}</a>
@@ -142,7 +134,7 @@ const Menu = ({ isMobileMenuOpen }: any) => {
 
         <div className="text-sm font-light absolute bottom-10">
           <div className="mt-[6.4815vh] flex flex-row">
-            <p className="w-[11.8229vw] overflow-hidden">
+            <p className="w-[44vw] md:w-[11.8229vw] overflow-hidden">
               <span>
                 <p className="overflow-hidden">
                   <span className="flex flex-row items-center" id="link-ref">
@@ -151,49 +143,70 @@ const Menu = ({ isMobileMenuOpen }: any) => {
                 </p>
               </span>
             </p>
-            <span className="-space-y-2">
-              <p className="flex flex-row group overflow-hidden">
-                <span id="link-ref">
-                  LinkedIn{" "}
-                  <IoChevronForwardSharp className="group-hover:visible invisible group-hover:translate-x-1 transition-all " />
+            <span>
+              <p className="group overflow-hidden">
+                <span id="link-ref" className="flex flex-row ">
+                  LinkedIn
+                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
                 </span>
               </p>
-              <p className="flex flex-row group overflow-hidden">
-                <span id="link-ref">
-                  Github{" "}
-                  <IoChevronForwardSharp className="group-hover:visible invisible group-hover:translate-x-1 transition-all " />
+              <p className="group overflow-hidden">
+                <span id="link-ref" className="flex flex-row ">
+                  Github
+                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
                 </span>
               </p>
-              <p className="flex flex-row group overflow-hidden">
-                <span id="link-ref">
-                  instagram{" "}
-                  <IoChevronForwardSharp className="group-hover:visible invisible group-hover:translate-x-1 transition-all " />
+              <p className="group overflow-hidden">
+                <span id="link-ref" className="flex flex-row ">
+                  instagram
+                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
                 </span>
               </p>
-              <p className="flex flex-row group overflow-hidden">
-                <span id="link-ref">
-                  spotify{" "}
-                  <IoChevronForwardSharp className="group-hover:visible invisible group-hover:translate-x-1 transition-all " />
+              <p className="group overflow-hidden">
+                <span id="link-ref" className="flex flex-row ">
+                  spotify
+                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
                 </span>
               </p>
             </span>
           </div>
 
           <div className="mt-[6.4815vh] flex flex-row">
-            <p className="w-[11.8229vw]">
-              <span>
+            <p className="w-[44vw] md:w-[11.8229vw]">
+              <span className="relative">
                 <p className="overflow-hidden">
+                  <span
+                    ref={indicatorRef}
+                    className="indicator absolute left-[-13px] top-[0.1rem]  w-[8px] h-[14.2px] bg-white"
+                    id="link-ref"
+                  />
                   <span className="flex flex-row items-center" id="link-ref">
                     get in touch
                   </span>
                 </p>
               </span>
             </p>
-            <span>
-              <p className="overflow-hidden">
+            <span
+              className="group z-40 relative"
+              onMouseEnter={moveBackgroundSpan}
+              onMouseLeave={moveBackBackgroundSpan}
+            >
+              <p className="overflow-hidden relative">
                 <span
-                  className="flex flex-row items-center bg-white text-black px-1"
+                  ref={bg2}
                   id="link-ref"
+                  className="absolute -left-5 top-0 bg-white text-black px-1 z-40 w-20 h-6 mr-2"
+                />
+
+                <span
+                  ref={bg1}
+                  id="link-ref"
+                  className="absolute left-0 top-0 bg-white text-black px-1 z-40 w-full h-6"
+                />
+
+                <span
+                  id="link-ref"
+                  className="flex flex-row items-center  text-black px-1 relative z-40"
                 >
                   email <IoChevronForwardSharp />
                 </span>
@@ -202,7 +215,7 @@ const Menu = ({ isMobileMenuOpen }: any) => {
           </div>
 
           <div className="mt-[6.4815vh] flex flex-row">
-            <p className="w-[11.8229vw] overflow-hidden">
+            <p className="w-[44vw] md:w-[11.8229vw] overflow-hidden">
               <span>
                 <p className="overflow-hidden">
                   <span className="flex flex-row items-center" id="link-ref">

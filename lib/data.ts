@@ -1,3 +1,5 @@
+import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
+
 export const links = [
   {
     name: "Work",
@@ -91,7 +93,7 @@ export const works = [
       "bubble-bg.png",
       "new-rt-comp-render.png",
       "moving-bubble.png",
-      "reactype.dev.png",  
+      "reactype.dev.png",
       "BLACK_RT_LOGO_WHITE_BG.png",
       "SF_RT_LOGO_WHITE_W_TEXT.png",
     ],
@@ -131,5 +133,60 @@ export const works = [
       "She wanted a site that was easy to navigate and showcased her work in a clean and professional way. She also wanted a site that was easy to update and maintain. I built her site using WordPress and Elementor, and created a custom theme. The site is fully responsive and looks great on all devices.",
     thirdHeading:
       "This site was built with Next.js, TailwindCSS, GSAP, and Framer Motion. It is a static site hosted on Vercel and is fully responsive, looking great on all devices.",
+  },
+];
+
+export const menuLinks = [
+  { name: "Home", link: "/" },
+  { name: "Works", link: "/works" },
+  { name: "contact", link: "/contact" },
+  { name: "INFO", link: "/info" },
+];
+
+export const menuImagesArray = [
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.8,
+    scale: 1,
+    zIndex: 2,
+    depth: 0,
+    perspective: 200,
+    tiltMaxAngle: 5.5,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.6,
+    scale: 0.93,
+    zIndex: 3,
+    depth: 0.5,
+    perspective: 400,
+    tiltMaxAngle: 4.5,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.4,
+    scale: 0.86,
+    zIndex: 4,
+    depth: 1,
+    perspective: 600,
+    tiltMaxAngle: 3,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.3,
+    scale: 0.79,
+    zIndex: 5,
+    depth: 1.5,
+    perspective: 800,
+    tiltMaxAngle: 1,
+  },
+  {
+    img: CB_NO_BLUR,
+    opacity: 0.3,
+    scale: 0.72,
+    zIndex: 5,
+    depth: 1.5,
+    perspective: 800,
+    tiltMaxAngle: 0.5,
   },
 ];
