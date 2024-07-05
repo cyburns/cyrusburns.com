@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import CB from "@/public/images/cb-blur-10.png";
 import { motion } from "framer-motion";
 import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
 import Tilt from "react-parallax-tilt";
+import gsap from "gsap";
 
 const name = "CYRUS";
 
@@ -100,9 +101,70 @@ const fakeArray = [
   },
 ];
 
-const Hero = ({ isMounted }: any) => {
+const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
+  const [delayedTimeout, setDelayedTimeout] = useState(true);
+  const container = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isMobileMenuOpen) {
+      open();
+    } else {
+      close();
+    }
+  }, [isMobileMenuOpen]);
+
+  useEffect(() => {
+    gsap.set(".link-ref", { y: "100%" });
+  }, []);
+
+  const open = () => {
+    setTimeout(() => {
+      setDelayedTimeout(true);
+    }, 300);
+
+    gsap.to(".link-ref", {
+      y: 0,
+      duration: 0.5,
+      stagger: 0.1,
+      delay: 1.5,
+    });
+
+    gsap.to(container.current, {
+      clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+      duration: 1.25,
+      ease: "power4.inOut",
+      zIndex: 100,
+    });
+  };
+
+  const close = () => {
+    setTimeout(() => {
+      setDelayedTimeout(false);
+    }, 1500);
+
+    gsap.to(container.current, {
+      zIndex: 0,
+      top: "-50%",
+
+      duration: 1.25,
+      ease: "power4.inOut",
+      onComplete: () => {
+        gsap.set(container.current, {
+          top: 0,
+
+          zIndex: 1,
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        });
+      },
+    });
+  };
+
   return (
-    <div className="h-screen w-screen bg-gradient-to-r from-[#38464a] sm:from-[#0c110f] via-[#38464a] sm:via-[#38464a] to-[#39494e] sm:to-[#39494e] overflow-hidden relative ">
+    <div
+      ref={container}
+      className="h-screen w-screen bg-gradient-to-r from-[#38464a] sm:from-[#0c110f] via-[#38464a] sm:via-[#38464a] to-[#39494e] sm:to-[#39494e] overflow-hidden fixed top-0 right-0"
+      style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" }}
+    >
       {fakeArray.map((styles, index) => {
         const {
           opacity,
@@ -141,14 +203,14 @@ const Hero = ({ isMounted }: any) => {
         );
       })}
 
-      <div className="text-white flex justify-center items-center w-full h-full flex-col uppercase relative z-20">
+      <div className="text-white flex justify-center items-center w-full h-full flex-col uppercase relative">
         <div className="container-1 overflow-hidden w-screen flex justify-center">
           {name.split("").map((letter, index) => (
             <motion.h1
               key={index}
               className="text-[20vw] font-black !leading-[0.75]"
               initial="hidden"
-              animate={!isMounted ? "visible" : "hidden"}
+              animate={!isMounted && delayedTimeout ? "visible" : "hidden"}
               custom={index}
               variants={textVariants}
             >

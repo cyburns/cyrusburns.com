@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { motion, useInView } from "framer-motion";
 import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
@@ -61,89 +61,101 @@ const fakeArray = [
   },
 ];
 
-const Menu = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const textVariantsTwo = {
+  hidden: {
+    y: 100,
+  },
+  visible: (i: number) => ({
+    y: 0,
+    rotateX: 0,
+    transition: {
+      delay: i * 0.15,
+      duration: 0.2,
+      type: "spring",
+      stiffness: 70,
+      damping: 20,
+    },
+  }),
+};
 
-  const tl = useRef<any>();
+const Menu = ({ isMobileMenuOpen }: any) => {
   const container = useRef<HTMLDivElement>(null);
   const imageRefContainer = useRef<HTMLDivElement>(null);
-  const isInView = useInView(container);
-
-  useEffect(() => {
-    if (container.current) {
-      tl.current = gsap.timeline({ paused: true }).to(container.current, {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        duration: 1.25,
-        ease: "power4.inOut",
-      });
-    }
-  }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
-      tl.current.play();
+      open();
     } else {
-      tl.current.reverse();
+      close();
     }
   }, [isMobileMenuOpen]);
 
-  const textVariantsTwo = {
-    hidden: {
-      y: 100,
-    },
-    visible: (i: number) => ({
+  useEffect(() => {
+    gsap.set(".link-ref", { y: "100%" });
+  }, []);
+
+  const open = () => {
+    gsap.to(".link-ref", {
       y: 0,
-      rotateX: 0,
-      transition: {
-        delay: i * 0.15,
-        duration: 0.2,
-        type: "spring",
-        stiffness: 70,
-        damping: 20,
+      duration: 0.5,
+      stagger: 0.1,
+      delay: 1.5,
+    });
+
+    gsap.to(container.current, {
+      clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+      duration: 1.25,
+      ease: "power4.inOut",
+      zIndex: 100,
+    });
+  };
+
+  const close = () => {
+    gsap.to(container.current, {
+      zIndex: 0,
+      top: "-50%",
+
+      duration: 1.25,
+      ease: "power4.inOut",
+      onComplete: () => {
+        gsap.set(container.current, {
+          top: 0,
+
+          zIndex: 1,
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        });
       },
-    }),
+    });
   };
 
   return (
-    <>
-      <div className="fixed top-5 right-5 text-white uppercase overflow-hidden z-50">
-        <motion.button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
-          custom={7}
-          variants={textVariantsTwo}
-        >
-          {isMobileMenuOpen ? "CLOSE" : "MENU"}
-        </motion.button>
-      </div>
+    <div
+      ref={container}
+      className="bg-[#141414] w-screen h-screen fixed top-0 right-0 z-40 text-white uppercase overflow-hidden"
+      style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
+    >
+      {fakeArray.map((styles, index) => (
+        <ImageContainer
+          styles={styles}
+          index={index}
+          isMobileMenuOpen={isMobileMenuOpen}
+          key={index}
+          imageRefContainer={imageRefContainer}
+        />
+      ))}
 
-      <div
-        ref={container}
-        className="bg-[#141414] w-screen h-screen fixed top-0 right-0 z-40 text-white uppercase overflow-hidden"
-        style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
-      >
-        {fakeArray.map((styles, index) => (
-          <ImageContainer
-            styles={styles}
-            index={index}
-            isMobileMenuOpen={isMobileMenuOpen}
-            key={index}
-            imageRefContainer={imageRefContainer}
-          />
-        ))}
-
-        <div className="flex h-full pl-5 md:pl-[75%] pt-32 md:pt-72 text-[3rem] !leading-[1] font-bold">
-          <ul>
-            {links.map((link, index) => (
-              <li key={index}>
-                <a href={link.link}>{link.name}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="flex h-full pl-5 md:pl-[75%] pt-32 md:pt-72 text-[3rem] !leading-[1] font-bold">
+        <ul>
+          {links.map((link, index) => (
+            <li key={index} className="overflow-hidden">
+              <a className="link-ref" href={link.link}>
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
-    </>
+    </div>
   );
 };
 

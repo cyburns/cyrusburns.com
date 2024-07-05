@@ -10,8 +10,10 @@ const ImageContainer = ({ styles, index, isMobileMenuOpen }: any) => {
     styles;
 
   useEffect(() => {
-    gsap.set(["#img-1", "#img-2", "#img-3", "#img-4"], { y: 700 });
+    gsap.set(["#img-1", "#img-2", "#img-3", "#img-4"], { y: 500 });
+  }, []);
 
+  useEffect(() => {
     if (isMobileMenuOpen) {
       open();
     } else {
@@ -23,15 +25,18 @@ const ImageContainer = ({ styles, index, isMobileMenuOpen }: any) => {
     gsap.to(["#img-1", "#img-2", "#img-3", "#img-4"], {
       y: 0,
       duration: 1,
-      stagger: 0.2,
+      stagger: 0.1,
     });
   };
 
   const close = () => {
     gsap.to(["#img-1", "#img-2", "#img-3", "#img-4"], {
-      y: 700,
+      y: 0,
       duration: 1,
-      stagger: 0.2,
+      stagger: 0.1,
+      onComplete: () => {
+        gsap.set(["#img-1", "#img-2", "#img-3", "#img-4"], { y: 500 });
+      },
     });
   };
 
