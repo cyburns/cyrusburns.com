@@ -1,40 +1,55 @@
 import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 const textVariantsTwo = {
   hidden: {
     y: 100,
+    opacity: 0,
   },
-  visible: (i: number) => ({
+  visible: {
     y: 0,
-    rotateX: 0,
+    opacity: 1,
     transition: {
-      delay: i * 0.15,
-      duration: 0.2,
-      type: "spring",
-      stiffness: 70,
-      damping: 20,
+      type: "tween",
+      duration: 0.7,
+      ease: "easeInOut",
+      stiffness: 50,
+      damping: 50,
     },
-  }),
+  },
+  exit: {
+    y: -100,
+    opacity: 0,
+    transition: {
+      type: "tween",
+      duration: 0.7,
+      ease: "easeInOut",
+      stiffness: 50,
+      damping: 50,
+    },
+  },
 };
 
 const MenuButton = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
   const container = useRef<HTMLDivElement>(null);
-  const isInView = useInView(container);
+
   return (
     <div
       ref={container}
       className="fixed top-5 right-5 text-white uppercase overflow-hidden z-[9999]"
     >
-      <motion.button
-        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        initial="hidden"
-        animate={isInView ? "visible" : "hidden"}
-        custom={7}
-        variants={textVariantsTwo}
-      >
-        {isMobileMenuOpen ? "CLOSE" : "MENU"}
-      </motion.button>
+      <AnimatePresence mode="wait">
+        <motion.button
+          key={isMobileMenuOpen ? "close" : "menu"}
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={textVariantsTwo}
+        >
+          {isMobileMenuOpen ? "CLOSE" : "MENU"}
+        </motion.button>
+      </AnimatePresence>
     </div>
   );
 };

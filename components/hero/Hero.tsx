@@ -113,27 +113,17 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
     }
   }, [isMobileMenuOpen]);
 
-  useEffect(() => {
-    gsap.set(".link-ref", { y: "100%" });
-  }, []);
-
   const open = () => {
     setTimeout(() => {
       setDelayedTimeout(true);
     }, 300);
-
-    gsap.to(".link-ref", {
-      y: 0,
-      duration: 0.5,
-      stagger: 0.1,
-      delay: 1.5,
-    });
 
     gsap.to(container.current, {
       clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
       duration: 1.25,
       ease: "power4.inOut",
       zIndex: 100,
+      opacity: 1,
     });
   };
 
@@ -145,15 +135,14 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
     gsap.to(container.current, {
       zIndex: 0,
       top: "-50%",
-
+      opacity: 0.2,
       duration: 1.25,
       ease: "power4.inOut",
       onComplete: () => {
         gsap.set(container.current, {
           top: 0,
-
-          zIndex: 1,
           clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+          zIndex: 1,
         });
       },
     });

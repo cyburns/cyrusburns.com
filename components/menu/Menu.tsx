@@ -2,9 +2,9 @@
 
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
-import { motion, useInView } from "framer-motion";
 import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
 import ImageContainer from "./ImageContainer";
+import { IoChevronForwardSharp } from "react-icons/io5";
 
 const links = [
   { name: "Home", link: "/" },
@@ -61,23 +61,6 @@ const fakeArray = [
   },
 ];
 
-const textVariantsTwo = {
-  hidden: {
-    y: 100,
-  },
-  visible: (i: number) => ({
-    y: 0,
-    rotateX: 0,
-    transition: {
-      delay: i * 0.15,
-      duration: 0.2,
-      type: "spring",
-      stiffness: 70,
-      damping: 20,
-    },
-  }),
-};
-
 const Menu = ({ isMobileMenuOpen }: any) => {
   const container = useRef<HTMLDivElement>(null);
   const imageRefContainer = useRef<HTMLDivElement>(null);
@@ -91,22 +74,24 @@ const Menu = ({ isMobileMenuOpen }: any) => {
   }, [isMobileMenuOpen]);
 
   useEffect(() => {
-    gsap.set(".link-ref", { y: "100%" });
+    gsap.set("#link-ref", { y: 50 });
   }, []);
 
   const open = () => {
-    gsap.to(".link-ref", {
-      y: 0,
-      duration: 0.5,
-      stagger: 0.1,
-      delay: 1.5,
-    });
-
     gsap.to(container.current, {
       clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
       duration: 1.25,
       ease: "power4.inOut",
       zIndex: 100,
+      opacity: 1,
+    });
+
+    gsap.to("#link-ref", {
+      y: 0,
+      duration: 1,
+      stagger: 0.055,
+      delay: 0.3,
+      ease: "power3.inOut",
     });
   };
 
@@ -114,16 +99,16 @@ const Menu = ({ isMobileMenuOpen }: any) => {
     gsap.to(container.current, {
       zIndex: 0,
       top: "-50%",
-
       duration: 1.25,
+      opacity: 0.2,
       ease: "power4.inOut",
       onComplete: () => {
         gsap.set(container.current, {
           top: 0,
-
           zIndex: 1,
           clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
         });
+        gsap.set("#link-ref", { y: 50 });
       },
     });
   };
@@ -144,16 +129,98 @@ const Menu = ({ isMobileMenuOpen }: any) => {
         />
       ))}
 
-      <div className="flex h-full pl-5 md:pl-[75%] pt-32 md:pt-72 text-[3rem] !leading-[1] font-bold">
+      <div className="flex h-full pl-5 md:pl-[75%] pt-32 md:pt-72 text-[3rem] !leading-[1] font-bold flex-col">
         <ul>
           {links.map((link, index) => (
-            <li key={index} className="overflow-hidden">
-              <a className="link-ref" href={link.link}>
-                {link.name}
-              </a>
-            </li>
+            <div className="overflow-hidden">
+              <li key={index} id="link-ref">
+                <a href={link.link}>{link.name}</a>
+              </li>
+            </div>
           ))}
         </ul>
+
+        <div className="text-sm font-light absolute bottom-10">
+          <div className="mt-[6.4815vh] flex flex-row">
+            <p className="w-[11.8229vw] overflow-hidden">
+              <span>
+                <p className="overflow-hidden">
+                  <span className="flex flex-row items-center" id="link-ref">
+                    connect
+                  </span>
+                </p>
+              </span>
+            </p>
+            <span className="-space-y-2">
+              <p className="flex flex-row group overflow-hidden">
+                <span id="link-ref">
+                  LinkedIn{" "}
+                  <IoChevronForwardSharp className="group-hover:visible invisible group-hover:translate-x-1 transition-all " />
+                </span>
+              </p>
+              <p className="flex flex-row group overflow-hidden">
+                <span id="link-ref">
+                  Github{" "}
+                  <IoChevronForwardSharp className="group-hover:visible invisible group-hover:translate-x-1 transition-all " />
+                </span>
+              </p>
+              <p className="flex flex-row group overflow-hidden">
+                <span id="link-ref">
+                  instagram{" "}
+                  <IoChevronForwardSharp className="group-hover:visible invisible group-hover:translate-x-1 transition-all " />
+                </span>
+              </p>
+              <p className="flex flex-row group overflow-hidden">
+                <span id="link-ref">
+                  spotify{" "}
+                  <IoChevronForwardSharp className="group-hover:visible invisible group-hover:translate-x-1 transition-all " />
+                </span>
+              </p>
+            </span>
+          </div>
+
+          <div className="mt-[6.4815vh] flex flex-row">
+            <p className="w-[11.8229vw]">
+              <span>
+                <p className="overflow-hidden">
+                  <span className="flex flex-row items-center" id="link-ref">
+                    get in touch
+                  </span>
+                </p>
+              </span>
+            </p>
+            <span>
+              <p className="overflow-hidden">
+                <span
+                  className="flex flex-row items-center bg-white text-black px-1"
+                  id="link-ref"
+                >
+                  email <IoChevronForwardSharp />
+                </span>
+              </p>
+            </span>
+          </div>
+
+          <div className="mt-[6.4815vh] flex flex-row">
+            <p className="w-[11.8229vw] overflow-hidden">
+              <span>
+                <p className="overflow-hidden">
+                  <span className="flex flex-row items-center" id="link-ref">
+                    New york, <br /> New york
+                  </span>
+                </p>
+              </span>
+            </p>
+
+            <span>
+              <p className="overflow-hidden">
+                <span className="flex flex-row items-center" id="link-ref">
+                  Berkshires, <br /> MA
+                </span>
+              </p>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
