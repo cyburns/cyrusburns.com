@@ -5,7 +5,6 @@ import gsap from "gsap";
 import ImageContainer from "./ImageContainer";
 import { IoChevronForwardSharp } from "react-icons/io5";
 import { menuImagesArray, menuLinks, socials } from "@/lib/data";
-import Link from "next/link";
 import LinkText from "./LinkText";
 
 interface MenuProps {
@@ -14,8 +13,6 @@ interface MenuProps {
 }
 
 const Menu = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MenuProps) => {
-  const [hoveredLinkIndex, setHoveredLinkIndex] = useState<number | null>(null);
-
   const container = useRef<HTMLDivElement>(null);
   const imageRefContainer = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
@@ -141,6 +138,7 @@ const Menu = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MenuProps) => {
                   setIsMobileMenuOpen({
                     isMobileMenuOpen: false,
                     index: link.index,
+                    prevIndex: isMobileMenuOpen.index,
                   });
                 }}
               >

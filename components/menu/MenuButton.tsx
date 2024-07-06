@@ -43,9 +43,17 @@ const MenuButton = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
           key={isMobileMenuOpen.isMobileMenuOpen ? "close" : "menu"}
           onClick={() => {
             if (isMobileMenuOpen.isMobileMenuOpen) {
-              setIsMobileMenuOpen({ isMobileMenuOpen: false, index: null });
+              setIsMobileMenuOpen({
+                isMobileMenuOpen: false,
+                index: null,
+                prevIndex: isMobileMenuOpen.index,
+              });
             } else {
-              setIsMobileMenuOpen({ isMobileMenuOpen: true, index: null });
+              setIsMobileMenuOpen({
+                isMobileMenuOpen: true,
+                index: null,
+                prevIndex: isMobileMenuOpen.index,
+              });
             }
           }}
           initial="hidden"

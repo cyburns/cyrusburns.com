@@ -8,12 +8,59 @@ import CYRUS from "@/public/images/cb-b-w.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const infoPhrases = [
+  {
+    paras: [
+      "Cyrus is a full-stack software",
+      "engineer who loves design of both",
+      "front-end user-facing apps and",
+      "backend efficiencies.",
+    ],
+  },
+  {
+    paras: [
+      "Over three years of experience",
+      "developing powerful and efficient full",
+      "stack applications. Together, we'll",
+      "redefine what's possible in tech. No",
+      "nonsense, always on the cutting ",
+      "edge.",
+    ],
+  },
+  {
+    paras: [
+      "The combination of my passion for",
+      "design, code & interaction positions",
+      "me in a unique place in the web and",
+      "mobile design development world.",
+    ],
+  },
+];
+
+const exp = [
+  {
+    title: "Software Engineer: Audia",
+  },
+  {
+    title: "Software Engineer: ReacType",
+  },
+  {
+    title: "Front-end Engineer: Press Sports",
+  },
+  {
+    title: "Freelance Developer: BRIGHT",
+  },
+];
+
 const Info = ({ isMobileMenuOpen }: any) => {
   const infoContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log(isMobileMenuOpen);
+    gsap.set("#text-ref", { y: 50 });
+    gsap.set("#img-ref", { y: 50, opacity: 0 });
+  }, []);
 
+  useEffect(() => {
     if (!isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === 3) {
       open();
     } else {
@@ -30,6 +77,22 @@ const Info = ({ isMobileMenuOpen }: any) => {
       opacity: 1,
       visibility: "visible",
       display: "block",
+    });
+
+    gsap.to("#text-ref", {
+      y: 0,
+      duration: 1,
+      stagger: 0.055,
+      delay: 0.3,
+      ease: "power3.inOut",
+    });
+
+    gsap.to("#img-ref", {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      delay: 0.3,
+      ease: "power3.inOut",
     });
   };
 
@@ -48,6 +111,7 @@ const Info = ({ isMobileMenuOpen }: any) => {
           visibility: "hidden",
           display: "none",
         });
+        gsap.set("#text-ref", { y: 50 });
       },
     });
   };
@@ -55,65 +119,56 @@ const Info = ({ isMobileMenuOpen }: any) => {
   return (
     <div
       ref={infoContainer}
-      className={`headers w-screen text-white flex flex-col items-center font-semibold transition duration-700 mix-blend-difference fixed top-0 right-0 mt-16`}
+      className={`headers w-screen min-h-fit text-white flex flex-col items-center font-normal transition duration-700 mix-blend-difference absolute top-0 right-0 pt-24 mb-16`}
       style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
     >
-      <div className="w-full flex flex-col sm:flex-row z-50 p-5 sm:p-10 text-sm sm:text-2xl">
-        <div className="flex justify-center sm:justify-start items-center sm:items-start">
-          <Image src={CYRUS} alt="CYRUS" className="w-72 object-contain" />
+      <div className="w-full flex flex-col sm:flex-row z-50 p-5 sm:p-10 text-[5vw] md:text-[1.75vw] lg:text-[1.56vw] leading-[5.5vw] lg:leading-[1.8vw]">
+        <div
+          className="flex justify-center sm:justify-start items-center sm:items-start"
+          id="img-ref"
+        >
+          <Image
+            src={CYRUS}
+            alt="CYRUS"
+            className="w-full sm:w-[15vw] object-contain"
+          />
         </div>
 
         <div className="flex flex-col lg:flex-row mt-10 sm:mt-0">
-          <div className="flex flex-col sm:ml-[10vw] lg:w-[24vw] space-y-10">
-            <p className="text-base font-extralight uppercase">
-              Developer / Designer
+          <div className="flex flex-col sm:ml-[10vw] w-full lg:w-[27vw] space-y-10">
+            <p className="text-[4vw] sm:text-[0.75vw] font-extralight uppercase overflow-hidden">
+              <span id="text-ref" className="flex">
+                Developer / Designer
+              </span>
             </p>
-            <p className="font-extralight">
-              <span className="font-medium">Cyrus is a full-stack </span>
-              software engineer who loves{" "}
-              <span className="font-medium"> design</span> of both front-end
-              user-facing apps and backend efficiencies.
-            </p>
-            <p className="font-extralight">
-              Over three years of experience developing{" "}
-              <span className="font-medium">powerful and efficient</span> full
-              stack applications. Together, we'll redefine what's possible in
-              tech. No nonsense, always on the{" "}
-              <span className="font-medium">cutting edge</span>.
-            </p>
-            <p className="font-extralight">
-              The combination of my passion for{" "}
-              <span className="font-medium">design</span>, code & interaction
-              positions me in a unique place in the{" "}
-              <span className="font-medium">web and mobile </span>
-              design development world.
-            </p>
+
+            {infoPhrases.map((phrase, index) => (
+              <div key={`${index}-p`}>
+                {phrase.paras.map((phrase, index) => (
+                  <p key={`${index}-span`} className="overflow-hidden">
+                    <span id="text-ref" className="flex">
+                      {phrase}
+                    </span>
+                  </p>
+                ))}
+              </div>
+            ))}
           </div>
 
-          <div className="flex flex-col sm:ml-[10vw] lg:w-[24vw] space-y-10">
-            <p className="text-base font-extralight uppercase">
-              past EXPERIENCE
+          <div className="flex flex-col sm:ml-[10vw] lg:w-[24vw] space-y-10 mt-10 lg:mt-0">
+            <p className="text-[4vw] sm:text-[0.75vw] font-extralight uppercase overflow-hidden">
+              <span id="text-ref" className="flex">
+                past EXPERIENCE
+              </span>
             </p>
             <div>
-              <p className="font-extralight">
-                Software Engineer:
-                <span className="font-medium"> Audia</span>
-              </p>
-
-              <p className="font-extralight">
-                Software Engineer:
-                <span className="font-medium"> ReacType</span>
-              </p>
-
-              <p className="font-extralight">
-                Front-end Engineer:
-                <span className="font-medium"> Press Sports</span>
-              </p>
-
-              <p className="font-extralight">
-                Freelance Developer / Designer:
-                <span className="font-medium"> BRIGHT</span>
-              </p>
+              {exp.map((ex, index) => (
+                <p key={`${index}-ex`} className="overflow-hidden">
+                  <span id="text-ref" className="flex">
+                    {ex.title}
+                  </span>
+                </p>
+              ))}
             </div>
           </div>
         </div>

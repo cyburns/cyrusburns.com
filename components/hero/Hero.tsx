@@ -50,7 +50,7 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
   useEffect(() => {
     if (!isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === null) {
       open();
-    } else {
+    } else if (isMobileMenuOpen.prevIndex === null) {
       close();
     }
   }, [isMobileMenuOpen]);

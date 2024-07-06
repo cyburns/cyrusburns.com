@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="  example">
+    <html lang="en" className="  example bg-[#1a1a1a]">
       <Mouse />
       <body className={`${raleway.className} `}>
         <ThemeContextProvider>

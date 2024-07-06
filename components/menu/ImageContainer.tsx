@@ -14,7 +14,7 @@ const ImageContainer = ({ styles, index, isMobileMenuOpen }: any) => {
   }, []);
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === null) {
       open();
     } else {
       close();
