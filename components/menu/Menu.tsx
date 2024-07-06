@@ -9,10 +9,11 @@ import Link from "next/link";
 import LinkText from "./LinkText";
 
 interface MenuProps {
-  isMobileMenuOpen: boolean;
+  isMobileMenuOpen: any;
+  setIsMobileMenuOpen: any;
 }
 
-const Menu = ({ isMobileMenuOpen }: MenuProps) => {
+const Menu = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MenuProps) => {
   const [hoveredLinkIndex, setHoveredLinkIndex] = useState<number | null>(null);
 
   const container = useRef<HTMLDivElement>(null);
@@ -22,7 +23,7 @@ const Menu = ({ isMobileMenuOpen }: MenuProps) => {
   const bg2 = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (isMobileMenuOpen) {
+    if (isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === null) {
       open();
     } else {
       close();
@@ -133,21 +134,25 @@ const Menu = ({ isMobileMenuOpen }: MenuProps) => {
             );
 
             return (
-              <Link href={link.link} key={index}>
-                <div className="overflow-hidden">
-                  <div
-                    onMouseEnter={() => setHoveredIndex(index)}
-                    onMouseLeave={() => setHoveredIndex(null)}
-                    id="link-ref"
-                  >
-                    <LinkText
-                      link={link}
-                      index={index}
-                      isHovered={hoveredIndex === index}
-                    />
-                  </div>
+              <div
+                className="overflow-hidden"
+                key={index}
+                onClick={() => {
+                  setIsMobileMenuOpen({ isMobileMenuOpen: false, index: 1 });
+                }}
+              >
+                <div
+                  onMouseEnter={() => setHoveredIndex(index)}
+                  onMouseLeave={() => setHoveredIndex(null)}
+                  id="link-ref"
+                >
+                  <LinkText
+                    link={link}
+                    index={index}
+                    isHovered={hoveredIndex === index}
+                  />
                 </div>
-              </Link>
+              </div>
             );
           })}
         </ul>

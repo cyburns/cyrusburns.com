@@ -48,7 +48,7 @@ const Hero = ({ isMounted, isMobileMenuOpen }: any) => {
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!isMobileMenuOpen) {
+    if (!isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === null) {
       open();
     } else {
       close();

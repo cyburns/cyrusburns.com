@@ -11,7 +11,7 @@ import ReacTypeRed from "@/public/images/reactype/reactype-red-text.png";
 import Press from "@/public/images/press/press-bg.png";
 import Portfolio from "@/public/images/port/pink-green-port.png";
 import Link from "next/link";
-import { useInView, motion } from "framer-motion";
+import { useInView } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -48,40 +48,12 @@ const works = [
   },
 ];
 
-const slideUp = {
-  initial: {
-    y: "100%",
-  },
-  open: (i: number) => ({
-    y: "0%",
-    transition: { duration: 0.5, delay: 0.01 * i },
-  }),
-  closed: {
-    y: "100%",
-    transition: { duration: 0.5 },
-  },
-};
-
-const opacity = {
-  initial: {
-    opacity: 0,
-  },
-  open: {
-    opacity: 1,
-    transition: { duration: 0.5 },
-  },
-  closed: {
-    opacity: 0,
-    transition: { duration: 0.5 },
-  },
-};
-
-const Hero = () => {
+const WorksHero = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
   const [backgroundColor, setBackgroundColor] = useState("#000000");
 
   const textBoxRef = useRef(null);
   const zIndexRef = useRef(null);
-
+  const container = useRef<HTMLDivElement>(null);
   const isInView = useInView(textBoxRef);
 
   useEffect(() => {
@@ -225,10 +197,51 @@ const Hero = () => {
     );
   }, []);
 
+  //OPENING and CLOSING ANIMATION
+
+  useEffect(() => {
+    if (isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === 1) {
+      open();
+    } else {
+      close();
+    }
+  }, [isMobileMenuOpen]);
+
+  const open = () => {
+    gsap.to(container.current, {
+      clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+      duration: 1.25,
+      ease: "power4.inOut",
+      zIndex: 100,
+      opacity: 1,
+    });
+  };
+
+  const close = () => {
+    gsap.to(container.current, {
+      zIndex: 0,
+      top: "-50%",
+      duration: 1.25,
+      opacity: 0.2,
+      ease: "power4.inOut",
+      onComplete: () => {
+        gsap.set(container.current, {
+          top: 0,
+          zIndex: 1,
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        });
+      },
+    });
+  };
+
   return (
     <div
+      ref={container}
       className={`headers text-[5rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-normal uppercase text-center transition duration-700 `}
-      style={{ backgroundColor }}
+      style={{
+        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        backgroundColor: backgroundColor,
+      }}
     >
       <div
         ref={zIndexRef}
@@ -358,4 +371,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default WorksHero;

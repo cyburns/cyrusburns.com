@@ -40,14 +40,20 @@ const MenuButton = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
     >
       <AnimatePresence mode="wait">
         <motion.button
-          key={isMobileMenuOpen ? "close" : "menu"}
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          key={isMobileMenuOpen.isMobileMenuOpen ? "close" : "menu"}
+          onClick={() => {
+            if (isMobileMenuOpen.isMobileMenuOpen) {
+              setIsMobileMenuOpen({ isMobileMenuOpen: false, index: null });
+            } else {
+              setIsMobileMenuOpen({ isMobileMenuOpen: true, index: null });
+            }
+          }}
           initial="hidden"
           animate="visible"
           exit="exit"
           variants={textVariantsTwo}
         >
-          {isMobileMenuOpen ? "CLOSE" : "MENU"}
+          {isMobileMenuOpen.isMobileMenuOpen ? "CLOSE" : "MENU"}
         </motion.button>
       </AnimatePresence>
     </div>

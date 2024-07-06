@@ -6,11 +6,15 @@ import SplashScreen from "@/components/home/SplashScreen";
 import { AnimatePresence } from "framer-motion";
 import Menu from "@/components/menu/Menu";
 import MenuButton from "@/components/menu/MenuButton";
+import WorksHero from "@/components/home/HeroHero";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [isMounted, setIsMounted] = useState(true);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState({
+    isMobileMenuOpen: false,
+    index: null,
+  });
 
   useEffect(() => {
     (async () => {
@@ -33,8 +37,15 @@ export default function Home() {
         isMobileMenuOpen={isMobileMenuOpen}
         setIsMobileMenuOpen={setIsMobileMenuOpen}
       />
-      <Menu isMobileMenuOpen={isMobileMenuOpen} />
+      <Menu
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
       <Hero isMounted={isMounted} isMobileMenuOpen={isMobileMenuOpen} />
+      <WorksHero
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
     </main>
   );
 }
