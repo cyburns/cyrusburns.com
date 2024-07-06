@@ -138,7 +138,10 @@ const Menu = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MenuProps) => {
                 className="overflow-hidden"
                 key={index}
                 onClick={() => {
-                  setIsMobileMenuOpen({ isMobileMenuOpen: false, index: 1 });
+                  setIsMobileMenuOpen({
+                    isMobileMenuOpen: false,
+                    index: link.index,
+                  });
                 }}
               >
                 <div

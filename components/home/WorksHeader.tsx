@@ -5,56 +5,17 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { shuffleLetters } from "@/lib/hooks";
 import Image from "next/image";
-import AudiaPhone from "@/public/images/audia/audia-w-text-centered.png";
-import BrightArt from "@/public/images/bright/bright-art.png";
-import ReacTypeRed from "@/public/images/reactype/reactype-red-text.png";
-import Press from "@/public/images/press/press-bg.png";
-import Portfolio from "@/public/images/port/pink-green-port.png";
+import { worksHeaderArray } from "@/lib/data";
 import Link from "next/link";
-import { useInView } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const works = [
-  {
-    id: "01",
-    name: "AUDIA",
-    img: AudiaPhone,
-    color: "#525252",
-  },
-  {
-    id: "02",
-    name: "BRIGHT",
-    img: BrightArt,
-    color: "#1e3f59",
-  },
-  {
-    id: "03",
-    name: "REACTYPE",
-    img: ReacTypeRed,
-    color: "#d42a30",
-  },
-  {
-    id: "04",
-    name: "PRESS",
-    img: Press,
-    color: "#ffe400",
-  },
-  {
-    id: "05",
-    name: "EXTRA",
-    img: Portfolio,
-    color: "#a01142",
-  },
-];
-
-const WorksHero = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
-  const [backgroundColor, setBackgroundColor] = useState("#000000");
+const WorksHeader = ({ isMobileMenuOpen }: any) => {
+  const [backgroundColor, setBackgroundColor] = useState("#141414");
 
   const textBoxRef = useRef(null);
   const zIndexRef = useRef(null);
   const container = useRef<HTMLDivElement>(null);
-  const isInView = useInView(textBoxRef);
 
   useEffect(() => {
     gsap.to(textBoxRef.current, {
@@ -135,7 +96,7 @@ const WorksHero = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
       "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
     );
 
-    for (let i = 1; i <= works.length; i++) {
+    for (let i = 1; i <= worksHeaderArray.length; i++) {
       const currentSection = `#section-${i}`;
       const prevPreview = `#preview-${i - 1}`;
       const currentPreview = `#preview-${i}`;
@@ -149,7 +110,7 @@ const WorksHero = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
         "center center"
       );
 
-      if (i <= works.length + 1) {
+      if (i <= worksHeaderArray.length + 1) {
         animateClipPath(
           currentSection,
           currentPreview,
@@ -200,7 +161,7 @@ const WorksHero = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
   //OPENING and CLOSING ANIMATION
 
   useEffect(() => {
-    if (isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === 1) {
+    if (!isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === 1) {
       open();
     } else {
       close();
@@ -320,7 +281,7 @@ const WorksHero = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
         </div>
       </div>
 
-      {works.map((work, index) => (
+      {worksHeaderArray.map((work, index) => (
         <section
           key={index}
           id={`section-${index + 1}`}
@@ -337,7 +298,7 @@ const WorksHero = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
       <div
         className={`section-previews fixed w-[350px] sm:w-[700px] h-[650px] sm:h-[900px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
       >
-        {works.map((work, index) => (
+        {worksHeaderArray.map((work, index) => (
           <Link href={`work/${work.id}`}>
             <div
               key={index}
@@ -371,4 +332,4 @@ const WorksHero = ({ isMobileMenuOpen, setIsMobileMenuOpen }: any) => {
   );
 };
 
-export default WorksHero;
+export default WorksHeader;

@@ -1,6 +1,12 @@
 import CB_NO_BLUR from "@/public/images/cb-no-blur-2.png";
 import CB from "@/public/images/cb-blur-10.png";
 
+import AudiaPhone from "@/public/images/audia/audia-w-text-centered.png";
+import BrightArt from "@/public/images/bright/bright-art.png";
+import ReacTypeRed from "@/public/images/reactype/reactype-red-text.png";
+import Press from "@/public/images/press/press-bg.png";
+import Portfolio from "@/public/images/port/pink-green-port.png";
+
 export const links = [
   {
     name: "Work",
@@ -138,10 +144,10 @@ export const works = [
 ];
 
 export const menuLinks = [
-  { name: "Home", link: "/" },
-  { name: "Works", link: "/works" },
-  { name: "contact", link: "/contact" },
-  { name: "INFO", link: "/info" },
+  { name: "Home", link: "/", index: null },
+  { name: "Works", link: "/works", index: 1 },
+  { name: "contact", link: "/contact", index: 2 },
+  { name: "INFO", link: "/info", index: 3 },
 ];
 
 export const menuImagesArray = [
@@ -256,5 +262,38 @@ export const heroImageArray = [
     depth: 1.5,
     perspective: 800,
     tiltMaxAngle: 2,
+  },
+];
+
+export const worksHeaderArray = [
+  {
+    id: "01",
+    name: "AUDIA",
+    img: AudiaPhone,
+    color: "#525252",
+  },
+  {
+    id: "02",
+    name: "BRIGHT",
+    img: BrightArt,
+    color: "#1e3f59",
+  },
+  {
+    id: "03",
+    name: "REACTYPE",
+    img: ReacTypeRed,
+    color: "#d42a30",
+  },
+  {
+    id: "04",
+    name: "PRESS",
+    img: Press,
+    color: "#ffe400",
+  },
+  {
+    id: "05",
+    name: "EXTRA",
+    img: Portfolio,
+    color: "#a01142",
   },
 ];
