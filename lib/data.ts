@@ -297,3 +297,47 @@ export const worksHeaderArray = [
     color: "#a01142",
   },
 ];
+
+export const infoPhrases = [
+  {
+    paras: [
+      "Cyrus is a full-stack software",
+      "engineer who loves design of both",
+      "front-end user-facing apps and",
+      "backend efficiencies.",
+    ],
+  },
+  {
+    paras: [
+      "Over three years of experience",
+      "developing powerful and efficient full",
+      "stack applications. Together, we'll",
+      "redefine what's possible in tech. No",
+      "nonsense, always on the cutting ",
+      "edge.",
+    ],
+  },
+  {
+    paras: [
+      "The combination of my passion for",
+      "design, code & interaction positions",
+      "me in a unique place in the web and",
+      "mobile design development world.",
+    ],
+  },
+];
+
+export const exp = [
+  {
+    title: "Software Engineer: Audia",
+  },
+  {
+    title: "Software Engineer: ReacType",
+  },
+  {
+    title: "Front-end Engineer: Press Sports",
+  },
+  {
+    title: "Freelance Developer: BRIGHT",
+  },
+];

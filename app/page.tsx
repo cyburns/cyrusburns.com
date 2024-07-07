@@ -11,8 +11,8 @@ import Info from "@/components/info/info";
 import Works from "@/components/work/Works";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isMounted, setIsMounted] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState({
     isMobileMenuOpen: false,
     index: null,
