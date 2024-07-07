@@ -29,10 +29,14 @@ html.dark {
   }
 }
 
-.example::-webkit-scrollbar {
+/* .example::-webkit-scrollbar {
   display: none;
-}
+} */
 
 .custom-clip {
   clip-path: polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%);
+}
+
+.container-1 {
+  perspective: 1000px;
 }

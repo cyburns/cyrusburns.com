@@ -16,8 +16,9 @@ const buttons = [
   { name: "EMAIL", link: "mailto:cyrusburns@gmail.com" },
 ];
 
-const Contact = () => {
+const Contact = ({ isMobileMenuOpen }: any) => {
   const textBoxRef = useRef(null);
+  const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.to(textBoxRef.current, {
@@ -34,34 +35,58 @@ const Contact = () => {
     });
   }, []);
 
+  useEffect(() => {
+    console.log("isMobileMenuOpen: ", isMobileMenuOpen);
+    console.log("Container ref: ", container.current);
+
+    if (!isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === 2) {
+      console.log("Opening Contact...");
+      open();
+    } else {
+      console.log("Closing Contact...");
+      close();
+    }
+  }, [isMobileMenuOpen]);
+
+  const open = () => {
+    console.log("Open function called");
+    gsap.to(container.current, {
+      clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+      duration: 1.25,
+      ease: "power4.inOut",
+      zIndex: 100,
+      opacity: 1,
+      visibility: "visible",
+      display: "block",
+    });
+  };
+
+  const close = () => {
+    console.log("Close function called");
+    gsap.to(container.current, {
+      zIndex: 0,
+      top: "-50%",
+      duration: 1.25,
+      opacity: 0.2,
+      ease: "power4.inOut",
+      onComplete: () => {
+        gsap.set(container.current, {
+          top: 0,
+          zIndex: 1,
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+          visibility: "hidden",
+          display: "none",
+        });
+      },
+    });
+  };
+
   return (
     <div
-      className={`headers text-[3rem] xs:text-[4rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-semibold transition duration-700 z-10 mix-blend-difference px-4 sm:px-0`}
+      ref={container}
+      className={`headers flex w-screen h-screen text-[3rem] xs:text-[4rem] sm:text-[14vw] bg-transparent text-white flex-col items-center font-semibold transition duration-700 mix-blend-difference px-4 sm:px-0 bg-red-500 fixed top-0 right-0`}
+      style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
     >
-      <div className="text-lg fixed left-5 top-5">
-        <button className="border-white text-white hover:text-black mix-blend-difference border-[1px] px-4 py-2 flex flex-row mb-10 hover:bg-white transition duration-300">
-          <Link
-            href="/"
-            className="flex flex-row items-center justify-between uppercase"
-          >
-            <IoCaretBack />
-            BACK
-          </Link>
-        </button>
-      </div>
-
-      <div className="text-lg fixed right-5 top-5">
-        <button className="border-white text-white hover:text-black mix-blend-difference border-[1px] px-4 py-2 flex flex-row mb-10 hover:bg-white transition duration-300">
-          <Link
-            href="/info"
-            className="flex flex-row items-center justify-between uppercase"
-          >
-            INFO
-            <IoCaretBack className="rotate-180" />
-          </Link>
-        </button>
-      </div>
-
       <div
         ref={textBoxRef}
         className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-[270px]"

@@ -5,84 +5,17 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { shuffleLetters } from "@/lib/hooks";
 import Image from "next/image";
-import AudiaPhone from "@/public/images/audia/audia-w-text-centered.png";
-import BrightArt from "@/public/images/bright/bright-art.png";
-import ReacTypeRed from "@/public/images/reactype/reactype-red-text.png";
-import Press from "@/public/images/press/press-bg.png";
-import Portfolio from "@/public/images/port/pink-green-port.png";
+import { worksHeaderArray } from "@/lib/data";
 import Link from "next/link";
-import { useInView, motion } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const works = [
-  {
-    id: "01",
-    name: "AUDIA",
-    img: AudiaPhone,
-    color: "#525252",
-  },
-  {
-    id: "02",
-    name: "BRIGHT",
-    img: BrightArt,
-    color: "#1e3f59",
-  },
-  {
-    id: "03",
-    name: "REACTYPE",
-    img: ReacTypeRed,
-    color: "#d42a30",
-  },
-  {
-    id: "04",
-    name: "PRESS",
-    img: Press,
-    color: "#ffe400",
-  },
-  {
-    id: "05",
-    name: "EXTRA",
-    img: Portfolio,
-    color: "#a01142",
-  },
-];
-
-const slideUp = {
-  initial: {
-    y: "100%",
-  },
-  open: (i: number) => ({
-    y: "0%",
-    transition: { duration: 0.5, delay: 0.01 * i },
-  }),
-  closed: {
-    y: "100%",
-    transition: { duration: 0.5 },
-  },
-};
-
-const opacity = {
-  initial: {
-    opacity: 0,
-  },
-  open: {
-    opacity: 1,
-    transition: { duration: 0.5 },
-  },
-  closed: {
-    opacity: 0,
-    transition: { duration: 0.5 },
-  },
-};
-
-const Hero = () => {
-  const [backgroundColor, setBackgroundColor] = useState("#000000");
+const WorksHeader = ({ isMobileMenuOpen }: any) => {
+  const [backgroundColor, setBackgroundColor] = useState("#141414");
 
   const textBoxRef = useRef(null);
   const zIndexRef = useRef(null);
-
-  const isInView = useInView(textBoxRef);
+  const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.to(textBoxRef.current, {
@@ -163,7 +96,7 @@ const Hero = () => {
       "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)"
     );
 
-    for (let i = 1; i <= works.length; i++) {
+    for (let i = 1; i <= worksHeaderArray.length; i++) {
       const currentSection = `#section-${i}`;
       const prevPreview = `#preview-${i - 1}`;
       const currentPreview = `#preview-${i}`;
@@ -177,7 +110,7 @@ const Hero = () => {
         "center center"
       );
 
-      if (i <= works.length + 1) {
+      if (i <= worksHeaderArray.length + 1) {
         animateClipPath(
           currentSection,
           currentPreview,
@@ -225,10 +158,51 @@ const Hero = () => {
     );
   }, []);
 
+  //OPENING and CLOSING ANIMATION
+
+  useEffect(() => {
+    if (!isMobileMenuOpen.isMobileMenuOpen && isMobileMenuOpen.index === 1) {
+      open();
+    } else {
+      close();
+    }
+  }, [isMobileMenuOpen]);
+
+  const open = () => {
+    gsap.to(container.current, {
+      clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
+      duration: 1.25,
+      ease: "power4.inOut",
+      zIndex: 100,
+      opacity: 1,
+    });
+  };
+
+  const close = () => {
+    gsap.to(container.current, {
+      zIndex: 0,
+      top: "-50%",
+      duration: 1.25,
+      opacity: 0.2,
+      ease: "power4.inOut",
+      onComplete: () => {
+        gsap.set(container.current, {
+          top: 0,
+          zIndex: 1,
+          clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        });
+      },
+    });
+  };
+
   return (
     <div
+      ref={container}
       className={`headers text-[5rem] sm:text-[14vw] bg-transparent text-white flex flex-col items-center font-normal uppercase text-center transition duration-700 `}
-      style={{ backgroundColor }}
+      style={{
+        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        backgroundColor: backgroundColor,
+      }}
     >
       <div
         ref={zIndexRef}
@@ -307,7 +281,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {works.map((work, index) => (
+      {worksHeaderArray.map((work, index) => (
         <section
           key={index}
           id={`section-${index + 1}`}
@@ -324,7 +298,7 @@ const Hero = () => {
       <div
         className={`section-previews fixed w-[350px] sm:w-[700px] h-[650px] sm:h-[900px] top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
       >
-        {works.map((work, index) => (
+        {worksHeaderArray.map((work, index) => (
           <Link href={`work/${work.id}`}>
             <div
               key={index}
@@ -358,4 +332,4 @@ const Hero = () => {
   );
 };
 
-export default Hero;
+export default WorksHeader;
