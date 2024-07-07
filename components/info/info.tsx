@@ -53,7 +53,8 @@ const exp = [
 ];
 
 const Info = ({ isMobileMenuOpen }: any) => {
-  const infoContainer = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
+  const imageRefContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     gsap.set("#text-ref", { y: 50 });
@@ -69,14 +70,12 @@ const Info = ({ isMobileMenuOpen }: any) => {
   }, [isMobileMenuOpen]);
 
   const open = () => {
-    gsap.to(infoContainer.current, {
+    gsap.to(container.current, {
       clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
       duration: 1.25,
       ease: "power4.inOut",
       zIndex: 100,
       opacity: 1,
-      visibility: "visible",
-      display: "block",
     });
 
     gsap.to("#text-ref", {
@@ -97,19 +96,17 @@ const Info = ({ isMobileMenuOpen }: any) => {
   };
 
   const close = () => {
-    gsap.to(infoContainer.current, {
+    gsap.to(container.current, {
       zIndex: 0,
       top: "-50%",
       duration: 1.25,
       opacity: 0.2,
       ease: "power4.inOut",
       onComplete: () => {
-        gsap.set(infoContainer.current, {
+        gsap.set(container.current, {
           top: 0,
           zIndex: 1,
           clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-          visibility: "hidden",
-          display: "none",
         });
         gsap.set("#text-ref", { y: 50 });
       },
@@ -118,15 +115,12 @@ const Info = ({ isMobileMenuOpen }: any) => {
 
   return (
     <div
-      ref={infoContainer}
-      className={`headers w-screen min-h-fit text-white flex flex-col items-center font-normal transition duration-700 mix-blend-difference absolute top-0 right-0 pt-24 mb-16`}
-      style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
+      ref={container}
+      className="h-screen w-screen bg-[#141414] text-white pt-24 overflow-hidden fixed top-0 right-0"
+      style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" }}
     >
-      <div className="w-full flex flex-col sm:flex-row z-50 p-5 sm:p-10 text-[5vw] md:text-[1.75vw] lg:text-[1.56vw] leading-[5.5vw] lg:leading-[1.8vw]">
-        <div
-          className="flex justify-center sm:justify-start items-center sm:items-start"
-          id="img-ref"
-        >
+      <div className="w-full flex flex-col sm:flex-row z-50 p-5 sm:p-10 text-[5vw] md:text-[3vw] lg:text-[1.56vw] leading-[5.5vw] md:leading-[3.5vw] lg:leading-[1.8vw]">
+        <div className="flex relative justify-center sm:justify-start items-center sm:items-start">
           <Image
             src={CYRUS}
             alt="CYRUS"
@@ -134,7 +128,7 @@ const Info = ({ isMobileMenuOpen }: any) => {
           />
         </div>
 
-        <div className="flex flex-col lg:flex-row mt-10 sm:mt-0">
+        <div className="flex flex-col lg:flex-row mt-10 sm:mt-0 w-full">
           <div className="flex flex-col sm:ml-[10vw] w-full lg:w-[27vw] space-y-10">
             <p className="text-[4vw] sm:text-[0.75vw] font-extralight uppercase overflow-hidden">
               <span id="text-ref" className="flex">

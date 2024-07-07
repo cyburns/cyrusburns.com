@@ -123,7 +123,7 @@ const Menu = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MenuProps) => {
         />
       ))}
 
-      <div className="flex h-full pl-5 md:pl-[75%] pt-32 md:pt-72 text-[3rem] !leading-[1] font-bold flex-col">
+      <div className="flex h-full pl-5 md:pl-[75%] pt-32  md:pt-[10vw] text-[3rem] !leading-[1] font-bold flex-col">
         <ul>
           {menuLinks.map((link, index) => {
             const [hoveredIndex, setHoveredIndex] = useState<number | null>(
@@ -132,7 +132,7 @@ const Menu = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MenuProps) => {
 
             return (
               <div
-                className="overflow-hidden"
+                className="overflow-hidden group flex flex-row"
                 key={index}
                 onClick={() => {
                   setIsMobileMenuOpen({
@@ -143,15 +143,18 @@ const Menu = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MenuProps) => {
                 }}
               >
                 <div
-                  onMouseEnter={() => setHoveredIndex(index)}
-                  onMouseLeave={() => setHoveredIndex(null)}
+                  // onMouseEnter={() => setHoveredIndex(index)}
+                  // onMouseLeave={() => setHoveredIndex(null)}
                   id="link-ref"
+                  className="overflow-hidden group flex flex-row items-center"
                 >
                   <LinkText
                     link={link}
                     index={index}
                     isHovered={hoveredIndex === index}
                   />
+
+                  <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all duration-500" />
                 </div>
               </div>
             );
@@ -178,7 +181,7 @@ const Menu = ({ isMobileMenuOpen, setIsMobileMenuOpen }: MenuProps) => {
                     className="flex flex-row items-center"
                   >
                     {link.name}
-                    <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all " />
+                    <IoChevronForwardSharp className="group-hover:opacity-100 opacity-0 group-hover:translate-x-1 transition-all duration-500" />
                   </a>
                 </p>
               ))}

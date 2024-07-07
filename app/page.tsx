@@ -46,10 +46,7 @@ export default function Home() {
       />
       <Hero isMounted={isMounted} isMobileMenuOpen={isMobileMenuOpen} />
       <Works isMobileMenuOpen={isMobileMenuOpen} />
-      <Contact
-        isMobileMenuOpen={isMobileMenuOpen}
-        setIsMobileMenuOpen={setIsMobileMenuOpen}
-      />
+      <Contact isMobileMenuOpen={isMobileMenuOpen} />
       <Info isMobileMenuOpen={isMobileMenuOpen} />
     </main>
   );
