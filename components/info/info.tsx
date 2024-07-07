@@ -8,54 +8,6 @@ import CYRUS from "@/public/images/cb-b-w.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export const menuImagesArray = [
-  {
-    img: CYRUS,
-    opacity: 1,
-    scale: 1,
-    zIndex: 2,
-    depth: 0,
-    perspective: 200,
-    tiltMaxAngle: 5.5,
-  },
-  {
-    img: CYRUS,
-    opacity: 0.2,
-    scale: 0.93,
-    zIndex: 3,
-    depth: 0.5,
-    perspective: 400,
-    tiltMaxAngle: 10,
-  },
-  {
-    img: CYRUS,
-    opacity: 0,
-    scale: 0.86,
-    zIndex: 4,
-    depth: 1,
-    perspective: 600,
-    tiltMaxAngle: 3,
-  },
-  {
-    img: CYRUS,
-    opacity: 0,
-    scale: 0.79,
-    zIndex: 5,
-    depth: 1.5,
-    perspective: 800,
-    tiltMaxAngle: 1,
-  },
-  {
-    img: CYRUS,
-    opacity: 0,
-    scale: 0.72,
-    zIndex: 5,
-    depth: 1.5,
-    perspective: 800,
-    tiltMaxAngle: 0.5,
-  },
-];
-
 const infoPhrases = [
   {
     paras: [
@@ -101,7 +53,7 @@ const exp = [
 ];
 
 const Info = ({ isMobileMenuOpen }: any) => {
-  const infoContainer = useRef<HTMLDivElement>(null);
+  const container = useRef<HTMLDivElement>(null);
   const imageRefContainer = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -118,14 +70,12 @@ const Info = ({ isMobileMenuOpen }: any) => {
   }, [isMobileMenuOpen]);
 
   const open = () => {
-    gsap.to(infoContainer.current, {
+    gsap.to(container.current, {
       clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)",
       duration: 1.25,
       ease: "power4.inOut",
       zIndex: 100,
       opacity: 1,
-      visibility: "visible",
-      display: "block",
     });
 
     gsap.to("#text-ref", {
@@ -146,19 +96,17 @@ const Info = ({ isMobileMenuOpen }: any) => {
   };
 
   const close = () => {
-    gsap.to(infoContainer.current, {
+    gsap.to(container.current, {
       zIndex: 0,
       top: "-50%",
       duration: 1.25,
       opacity: 0.2,
       ease: "power4.inOut",
       onComplete: () => {
-        gsap.set(infoContainer.current, {
+        gsap.set(container.current, {
           top: 0,
           zIndex: 1,
           clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
-          visibility: "hidden",
-          display: "none",
         });
         gsap.set("#text-ref", { y: 50 });
       },
@@ -167,9 +115,9 @@ const Info = ({ isMobileMenuOpen }: any) => {
 
   return (
     <div
-      ref={infoContainer}
-      className={`headers w-screen min-h-fit text-white flex flex-col items-center font-normal transition duration-700 mix-blend-difference absolute top-0 right-0 pt-24 mb-16`}
-      style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }}
+      ref={container}
+      className="h-screen w-screen bg-[#141414] text-white pt-24 overflow-hidden fixed top-0 right-0"
+      style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" }}
     >
       <div className="w-full flex flex-col sm:flex-row z-50 p-5 sm:p-10 text-[5vw] md:text-[3vw] lg:text-[1.56vw] leading-[5.5vw] md:leading-[3.5vw] lg:leading-[1.8vw]">
         <div className="flex relative justify-center sm:justify-start items-center sm:items-start">

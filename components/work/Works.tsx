@@ -73,7 +73,7 @@ const Works = ({ isMobileMenuOpen }: any) => {
   return (
     <div
       ref={container}
-      className="text-white  mb-[50rem] z-50 p-5 bg-[#1a1a1a] absolute top-0 left-0 !min-h-fit"
+      className="text-white mb-[50rem] z-50 p-5 bg-[#1a1a1a] absolute top-0 left-0 !min-h-fit"
       style={{
         clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
       }}
