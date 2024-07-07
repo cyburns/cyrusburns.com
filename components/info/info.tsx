@@ -116,7 +116,7 @@ const Info = ({ isMobileMenuOpen }: any) => {
   return (
     <div
       ref={container}
-      className="h-screen w-screen bg-[#141414] text-white pt-24 overflow-hidden fixed top-0 right-0"
+      className="h-screen w-screen bg-[#141414] text-white pt-24 overflow-hidden fixed top-0 right-0 min-h-fit"
       style={{ clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" }}
     >
       <div className="w-full flex flex-col sm:flex-row z-50 p-5 sm:p-10 text-[5vw] md:text-[3vw] lg:text-[1.56vw] leading-[5.5vw] md:leading-[3.5vw] lg:leading-[1.8vw]">
